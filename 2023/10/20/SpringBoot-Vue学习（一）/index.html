@@ -508,11 +508,11 @@
 <li><p>点击创建</p>
 </li>
 </ol>
-<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020172213172.png" alt="image-20231020172213172"></p>
+<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020172213172.png"></p>
 <ol>
 <li>自动创建的项目结构如图所示</li>
 </ol>
-<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020174632329.png" alt="image-20231020174632329"></p>
+<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020174632329.png"></p>
 <h1 id="编写第一个后端程序"><a href="#编写第一个后端程序" class="headerlink" title="编写第一个后端程序"></a>编写第一个后端程序</h1><ol>
 <li><p>在com.example.hellworld包下新建controller包</p>
 </li>
@@ -527,15 +527,15 @@
 <li><p>进行如上设置后，网页访问<a target="_blank" rel="noopener" href="http://localhost:8080/hello%E9%93%BE%E6%8E%A5%E6%97%B6%EF%BC%8C%E8%AE%BF%E9%97%AE%E7%9A%84%E5%B0%B1%E6%98%AFhello%E6%96%B9%E6%B3%95">http://localhost:8080/hello链接时，访问的就是hello方法</a></p>
 </li>
 </ol>
-<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020175710880.png" alt="image-20231020175710880"></p>
+<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020175710880.png"></p>
 <ol>
 <li>回到HelloworldApplication类，运行main方法，即可启动Tomcat</li>
 </ol>
-<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020175743639.png" alt="image-20231020175743639"></p>
+<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020175743639.png"></p>
 <ol>
-<li>网页访问<a target="_blank" rel="noopener" href="http://localhost:8080/hello%E9%93%BE%E6%8E%A5%EF%BC%8C%E5%90%8E%E7%AB%AF%E8%B0%83%E7%94%A8hello%E6%96%B9%E6%B3%95%EF%BC%8C%E8%BF%94%E5%9B%9E%E5%AD%97%E7%AC%A6%E4%B8%B2%E2%80%9CHello">http://localhost:8080/hello链接，后端调用hello方法，返回字符串“Hello</a> World!”</li>
+<li>网页访问”<a target="_blank" rel="noopener" href="http://localhost:8080/hello%E2%80%9C%E9%93%BE%E6%8E%A5%EF%BC%8C%E5%90%8E%E7%AB%AF%E8%B0%83%E7%94%A8hello%E6%96%B9%E6%B3%95%EF%BC%8C%E8%BF%94%E5%9B%9E%E5%AD%97%E7%AC%A6%E4%B8%B2%E2%80%9CHello">http://localhost:8080/hello“链接，后端调用hello方法，返回字符串“Hello</a> World!”</li>
 </ol>
-<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020175806756.png" alt="image-20231020175806756"></p>
+<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020175806756.png"></p>
 <h1 id="开发环境的热部署"><a href="#开发环境的热部署" class="headerlink" title="开发环境的热部署"></a>开发环境的热部署</h1><h2 id="devtools介绍"><a href="#devtools介绍" class="headerlink" title="devtools介绍"></a>devtools介绍</h2><ul>
 <li><p>在实际的项目开发和调试过程中，我们会频繁地修改后台文件，导致需要重新编译和启动项目，这个过程非常麻烦，影响开发效率</p>
 </li>
@@ -554,7 +554,7 @@
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020181102448.png" alt="image-20231020181102448"></p>
+<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020181102448.png"></p>
 <ol>
 <li>在application.properties中配置devtools，填入以下代码</li>
 </ol>
@@ -563,23 +563,23 @@
 <ol>
 <li>在IDEA的设置中找到“构建、执行、部署”—-“编译器”选项，勾选“自动构建项目”，并点击应用</li>
 </ol>
-<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020182713451.png" alt="image-20231020182713451"></p>
+<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020182713451.png"></p>
 <ol>
 <li>在IDEA的设置中找到“高级设置”—-“编译器”选项，勾选“即使开发的应用程序正在运行，也允许自动make启动”选项，并点击应用（该步骤为IDEA2021版本之后的操作方法，2021版本之前的IDEA需要使用”Ctrl+Shift+Alt+&#x2F;“进入维护界面，再点击注册表项进入注册表，勾选“compiler.automake.allow.when.app.running”选项）</li>
 </ol>
-<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020183607200.png" alt="image-20231020183607200"></p>
+<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020183607200.png"></p>
 <ol>
-<li>完成以上操作即实现了项目的热部署，此时运行项目，在浏览器中访问<a target="_blank" rel="noopener" href="http://localhost:8080/hello%E9%93%BE%E6%8E%A5%EF%BC%8C%E5%8F%91%E7%8E%B0%E6%88%90%E5%8A%9F%E8%BF%94%E5%9B%9E%E2%80%9CHello">http://localhost:8080/hello链接，发现成功返回“Hello</a> world!”</li>
+<li>完成以上操作即实现了项目的热部署，此时运行项目，在浏览器中访问”<a target="_blank" rel="noopener" href="http://localhost:8080/hello%E2%80%9C%E9%93%BE%E6%8E%A5%EF%BC%8C%E5%8F%91%E7%8E%B0%E6%88%90%E5%8A%9F%E8%BF%94%E5%9B%9E%E2%80%9CHello">http://localhost:8080/hello“链接，发现成功返回“Hello</a> world!”</li>
 </ol>
-<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020175806756.png" alt="image-20231020175806756"></p>
+<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020175806756.png"></p>
 <ol>
 <li>修改HelloController类中的hello方法，使其的返回值变为“你好!”，并保存，会发现IDEA中的控制台自动重新编译并部署了该项目</li>
 </ol>
-<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020184247168.png" alt="image-20231020184247168"></p>
+<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020184247168.png"></p>
 <ol>
-<li>此时再用浏览器访问<a target="_blank" rel="noopener" href="http://localhost:8080/hello%E9%93%BE%E6%8E%A5%EF%BC%8C%E5%8F%91%E7%8E%B0%E6%88%90%E5%8A%9F%E8%BF%94%E5%9B%9E%E2%80%9C%E4%BD%A0%E5%A5%BD!%E2%80%9D">http://localhost:8080/hello链接，发现成功返回“你好!”</a></li>
+<li>此时再用浏览器访问”<a target="_blank" rel="noopener" href="http://localhost:8080/hello%E2%80%9C%E9%93%BE%E6%8E%A5%EF%BC%8C%E5%8F%91%E7%8E%B0%E6%88%90%E5%8A%9F%E8%BF%94%E5%9B%9E%E2%80%9C%E4%BD%A0%E5%A5%BD!%E2%80%9D">http://localhost:8080/hello“链接，发现成功返回“你好!”</a></li>
 </ol>
-<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020184327177.png" alt="image-20231020184327177"></p>
+<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020184327177.png"></p>
 
                 
             </div>
