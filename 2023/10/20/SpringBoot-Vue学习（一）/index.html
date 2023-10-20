@@ -555,13 +555,22 @@
 <li><p>使用optional&#x3D;true表示依赖不会传递，即该项目依赖devtools，其他项目如果引入此项目生成的jar包，则不会包含devtools</p>
 </li>
 </ol>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-devtools<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optional</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>optional</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020181102448.png"></p>
 <ol>
 <li>在application.properties中配置devtools，填入以下代码</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 热部署生效</span><br><span class="line">spring.devtools.restart.enabled=<span class="literal">true</span></span><br><span class="line"># 设置重启目录</span><br><span class="line">spring.devtools.restart.additional-paths=src/main/java</span><br><span class="line"># 设置classpath目录下的<span class="keyword">static</span>文件夹内容修改不重启</span><br><span class="line">spring.devtools.restart.exclude=<span class="keyword">static</span><span class="comment">/**</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"># 热部署生效
+spring<span class="token punctuation">.</span>devtools<span class="token punctuation">.</span>restart<span class="token punctuation">.</span>enabled<span class="token operator">=</span><span class="token boolean">true</span>
+# 设置重启目录
+spring<span class="token punctuation">.</span>devtools<span class="token punctuation">.</span>restart<span class="token punctuation">.</span>additional<span class="token operator">-</span>paths<span class="token operator">=</span>src<span class="token operator">/</span>main<span class="token operator">/</span>java
+# 设置classpath目录下的<span class="token keyword">static</span>文件夹内容修改不重启
+spring<span class="token punctuation">.</span>devtools<span class="token punctuation">.</span>restart<span class="token punctuation">.</span>exclude<span class="token operator">=</span><span class="token keyword">static</span><span class="token comment">/**</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ol>
 <li>在IDEA的设置中找到“构建、执行、部署”—-“编译器”选项，勾选“自动构建项目”，并点击应用</li>
