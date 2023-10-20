@@ -483,9 +483,9 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="SpringBoot的MVC架构"><a href="#SpringBoot的MVC架构" class="headerlink" title="SpringBoot的MVC架构"></a>SpringBoot的MVC架构</h1><p>SpringBoot的MVC架构如图所示，分为Model、View、Controller三部分</p>
+                <h2 id="SpringBoot的MVC架构"><a href="#SpringBoot的MVC架构" class="headerlink" title="SpringBoot的MVC架构"></a>SpringBoot的MVC架构</h2><p>SpringBoot的MVC架构如图所示，分为Model、View、Controller三部分</p>
 <p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/image-20231020200250730.png"></p>
-<h1 id="控制器注解"><a href="#控制器注解" class="headerlink" title="控制器注解"></a>控制器注解</h1><ul>
+<h2 id="控制器注解"><a href="#控制器注解" class="headerlink" title="控制器注解"></a>控制器注解</h2><ul>
 <li><p>SpringBoot提供了@Controller和@RestController两种注解来标识某个类，表示这个类将会负责接受和处理HTTP请求</p>
 </li>
 <li><p>如果请求的是页面和数据，则使用@Controller注解，该注解用于<strong>前后端不分离</strong>的项目</p>
@@ -495,7 +495,7 @@
 <li><p>默认情况下，@RestController注解会将返回的对象数据转换成JSON格式</p>
 </li>
 </ul>
-<h1 id="路由映射"><a href="#路由映射" class="headerlink" title="路由映射"></a>路由映射</h1><ul>
+<h2 id="路由映射"><a href="#路由映射" class="headerlink" title="路由映射"></a>路由映射</h2><ul>
 <li><p>@RequestMapping注解主要负责URL的路由映射。它可以添加在Controller类或者具体的方法上</p>
 </li>
 <li><p>如果添加在Controller类上，则这个Controller中的所有路由映射都将会加上此映射规则，如果添加在方法上，则只对当前方法生效</p>
@@ -521,7 +521,7 @@
 <p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/image-20231020202725554.png"></p>
 </li>
 </ul>
-<h1 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h1><ul>
+<h2 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h2><ul>
 <li>@RequestParam将请求参数绑定到控制器的方法参数上，接收的参数来自HTTP请求提货请求url的QueryString，当请求的参数名称与Controller的业务方法参数名称一致时，@RequestParam可以省略</li>
 <li>@PathVaraible：用来处理动态的URL，URL的值可以作为控制器中处理方法的参数</li>
 <li>@RequestBody接收的参数是来自requestBody中，即请求体。一般用于处理非Content-Type:application&#x2F;x-www-form-urlencoded编码格式的数据，比如：“application&#x2F;json”、“application&#x2F;xml”等类型的数据</li>

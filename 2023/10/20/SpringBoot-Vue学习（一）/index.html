@@ -483,8 +483,8 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="SpringBoot介绍"><a href="#SpringBoot介绍" class="headerlink" title="SpringBoot介绍"></a>SpringBoot介绍</h1><p>SpringBoot是由Pivotal团队提供的基于Spring的全新框架，旨在简化Spring应用的初始搭建和开发过程。它可以极大地降低Spring应用的开发门槛，让开发、测试、部署都变得更加简单。</p>
-<h1 id="SpringBoot的特点"><a href="#SpringBoot的特点" class="headerlink" title="SpringBoot的特点"></a>SpringBoot的特点</h1><ul>
+                <h2 id="SpringBoot介绍"><a href="#SpringBoot介绍" class="headerlink" title="SpringBoot介绍"></a>SpringBoot介绍</h2><p>SpringBoot是由Pivotal团队提供的基于Spring的全新框架，旨在简化Spring应用的初始搭建和开发过程。它可以极大地降低Spring应用的开发门槛，让开发、测试、部署都变得更加简单。</p>
+<h2 id="SpringBoot的特点"><a href="#SpringBoot的特点" class="headerlink" title="SpringBoot的特点"></a>SpringBoot的特点</h2><ul>
 <li><p>遵循“约定优于配置”的原则，只需要很少的配置或者基本使用默认配置</p>
 </li>
 <li><p>能够使用内嵌的Tomcat、Jetty服务器，不需要部署war文件</p>
@@ -496,7 +496,7 @@
 <li><p>提供了生产级的服务监控方案，如安全监控、应用监控、健康检测等</p>
 </li>
 </ul>
-<h1 id="IDEA创建SpringBoot应用"><a href="#IDEA创建SpringBoot应用" class="headerlink" title="IDEA创建SpringBoot应用"></a>IDEA创建SpringBoot应用</h1><ol>
+<h2 id="IDEA创建SpringBoot应用"><a href="#IDEA创建SpringBoot应用" class="headerlink" title="IDEA创建SpringBoot应用"></a>IDEA创建SpringBoot应用</h2><ol>
 <li><p>设置项目名称及项目存储地址</p>
 </li>
 <li><p>设置语言为Java，构建器为Maven，JDK我使用的是1.8，因此Java版本设置为8</p>
@@ -516,7 +516,7 @@
 <li>自动创建的项目结构如图所示</li>
 </ol>
 <p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020174632329.png"></p>
-<h1 id="编写第一个后端程序"><a href="#编写第一个后端程序" class="headerlink" title="编写第一个后端程序"></a>编写第一个后端程序</h1><ol>
+<h2 id="编写第一个后端程序"><a href="#编写第一个后端程序" class="headerlink" title="编写第一个后端程序"></a>编写第一个后端程序</h2><ol>
 <li><p>在com.example.hellworld包下新建controller包</p>
 </li>
 <li><p>在controller包下新建HelloController类</p>
@@ -539,7 +539,7 @@
 <li>网页访问<a target="_blank" rel="noopener" href="http://localhost:8080/hello">http://localhost:8080/hello</a> 链接，后端调用hello方法，返回字符串“Hello World!”</li>
 </ol>
 <p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/image-20231020175806756.png"></p>
-<h1 id="开发环境的热部署"><a href="#开发环境的热部署" class="headerlink" title="开发环境的热部署"></a>开发环境的热部署</h1><h2 id="devtools介绍"><a href="#devtools介绍" class="headerlink" title="devtools介绍"></a>devtools介绍</h2><ul>
+<h2 id="开发环境的热部署"><a href="#开发环境的热部署" class="headerlink" title="开发环境的热部署"></a>开发环境的热部署</h2><h3 id="devtools介绍"><a href="#devtools介绍" class="headerlink" title="devtools介绍"></a>devtools介绍</h3><ul>
 <li><p>在实际的项目开发和调试过程中，我们会频繁地修改后台文件，导致需要重新编译和启动项目，这个过程非常麻烦，影响开发效率</p>
 </li>
 <li><p>SpringBoot提供了spring-boot-devtools组件，使得无须手动重启SpringBoot应用即可重新编译、启动项目，提升开发效率</p>
@@ -549,7 +549,7 @@
 <li><p>并不是所有的更改都需要重启应用（如静态资源、视图模板），可以提供过设置spring.devtools.restart.exclude属性来指定一些文件或目录的修改不需要重启应用</p>
 </li>
 </ul>
-<h2 id="配置devtools"><a href="#配置devtools" class="headerlink" title="配置devtools"></a>配置devtools</h2><ol>
+<h3 id="配置devtools"><a href="#配置devtools" class="headerlink" title="配置devtools"></a>配置devtools</h3><ol>
 <li><p>在pom.xml中添加devtools的依赖</p>
 </li>
 <li><p>使用optional&#x3D;true表示依赖不会传递，即该项目依赖devtools，其他项目如果引入此项目生成的jar包，则不会包含devtools</p>
