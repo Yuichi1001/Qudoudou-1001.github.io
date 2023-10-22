@@ -515,12 +515,12 @@ sudo apt update           （更新软件包列表）<span aria-hidden="true" cl
 <p><img src="/2023/10/21/%E5%9C%A8Ubuntu22-04%E4%B8%AD%E5%AE%89%E8%A3%85Ruby/image-20231022000634717.png"></p>
 </li>
 </ul>
-<h3 id="使用Ruby"><a href="#使用Ruby" class="headerlink" title="使用Ruby"></a>使用Ruby</h3><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">rvm use <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Ruby版本号</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="使用Ruby"><a href="#使用Ruby" class="headerlink" title="使用Ruby"></a>使用Ruby</h3><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">rvm use <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Ruby版本号</span><span class="token punctuation">></span></span> --default<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ul>
-<li>使用Ruby，版本号应与安装时相同</li>
+<li>配置Ruby的默认版本，版本号应与安装时相同</li>
 </ul>
-<p><img src="/2023/10/21/%E5%9C%A8Ubuntu22-04%E4%B8%AD%E5%AE%89%E8%A3%85Ruby/image-20231022001456039.png"></p>
+<p><img src="/2023/10/21/%E5%9C%A8Ubuntu22-04%E4%B8%AD%E5%AE%89%E8%A3%85Ruby/image-20231022113839950.png"></p>
 <ul>
 <li>至此，Ruby安装完成</li>
 </ul>
@@ -533,12 +533,11 @@ sudo apt update           （更新软件包列表）<span aria-hidden="true" cl
 </ul>
 <p><img src="/2023/10/21/%E5%9C%A8Ubuntu22-04%E4%B8%AD%E5%AE%89%E8%A3%85Ruby/image-20231022001107153.png"></p>
 <ul>
-<li><p>问题原因及解决方法</p>
+<li>问题原因及解决方法</li>
+</ul>
 <blockquote>
 <p>Ubuntu22.04使用是OpenSSl3.0而非1.1.x版本，因此只能安装3.0版本以上（不包括3.0）的Ruby</p>
 </blockquote>
-</li>
-</ul>
 
                 
             </div>
@@ -652,18 +651,17 @@ sudo apt update           （更新软件包列表）<span aria-hidden="true" cl
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/10/21/%E5%9C%A8Ubuntu22-04%E4%B8%AD%E5%AE%89%E8%A3%85Ruby/">
+                <a href="/2023/10/22/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AARails%E9%A1%B9%E7%9B%AE/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="在Ubuntu22.04中安装Ruby">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="部署第一个Rails项目">
                         
-                        <span class="card-title">在Ubuntu22.04中安装Ruby</span>
+                        <span class="card-title">部署第一个Rails项目</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -673,33 +671,16 @@ sudo apt update           （更新软件包列表）<span aria-hidden="true" cl
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-10-21
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-10-22
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Ruby-on-Rails/" class="post-category">
-                                    Ruby on Rails
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Yuichi
                             
                         </span>
                     </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Ruby/">
-                        <span class="chip bg-color">Ruby</span>
-                    </a>
-                    
-                    <a href="/tags/Ubuntu/">
-                        <span class="chip bg-color">Ubuntu</span>
-                    </a>
-                    
                 </div>
                 
             </div>
