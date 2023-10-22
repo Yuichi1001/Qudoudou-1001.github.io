@@ -492,7 +492,72 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h2 id="拦截器学习"><a href="#拦截器学习" class="headerlink" title="拦截器学习"></a>拦截器学习</h2><h3 id="拦截器简介"><a href="#拦截器简介" class="headerlink" title="拦截器简介"></a>拦截器简介</h3><ul>
+<li>拦截器在Web系统中很常见，对于某些全局统一的操作，我们可以把它提取到拦截器中实现，比如以下几种情景：<ol>
+<li>权限检查：如登录检测，进入处理程序检测是否登录，如果没有，则直接返回登录界面</li>
+<li>性能监控：有时系统在某段时间莫名奇妙很慢，可以通过拦截器在进入处理程序之前记录开始时间，在处理完后记录结束时间，从而得到该请求的处理时间</li>
+<li>通用行为：读取Cookie得到用户信息并将用户对象放入请求，从而方便后续流程使用。还有提取Locale、Theme信息等，只要是多个处理程序都需要的，即可使用拦截器实现</li>
+</ol>
+</li>
+<li>SpringBoot定义了HandlerInterceptor接口来自定义拦截器的功能。HnadlerInterceptor接口定义了preHandle、postHandle、afterCompletion三种方法，我们可以通过重写这三种方法来实现请求前、请求后、页面渲染后等操作。示意图如下：</li>
+</ul>
+<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/image-20231022214843629.png"></p>
+<h3 id="拦截器的定义"><a href="#拦截器的定义" class="headerlink" title="拦截器的定义"></a>拦截器的定义</h3><ul>
+<li>拦截器的经典定义如下</li>
+</ul>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LoginInterceptor</span> <span class="token keyword">implements</span> <span class="token class-name">HandlerInterceptor</span><span class="token punctuation">&#123;</span>
+    <span class="token comment">//preHandle方法是在Controller的方法调用之前进行处理</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">preHandle</span><span class="token punctuation">(</span><span class="token class-name">HttpServletRequest</span> request<span class="token punctuation">,</span> <span class="token class-name">HttpServletResponse</span> response<span class="token punctuation">,</span> <span class="token class-name">Object</span> handler<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>条件<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printlin</span><span class="token punctuation">(</span><span class="token string">"通过"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"不通过"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="拦截器的注册"><a href="#拦截器的注册" class="headerlink" title="拦截器的注册"></a>拦截器的注册</h3><ul>
+<li>在定义完拦截器后，还需要对拦截器进行注册，否则该拦截器无法使用</li>
+<li>addPathPatterns方法定义拦截的地址</li>
+<li>excludePathPatterns定义排除某些地址不被拦截</li>
+<li>注册某一拦截器如果没有addPathPatterns任何一个url的话，则表示拦截所有的请求</li>
+<li>注册某一拦截器如果没有excludePathPatterns任何一个请求的话，则表示不放过任何一个请求</li>
+</ul>
+<p>拦截器的注册示例如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebConfigurer</span> <span class="token keyword">implements</span> <span class="token class-name">WebMvcConfigurer</span><span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addInterceptors</span><span class="token punctuation">(</span><span class="token class-name">InterceptorRegistry</span> registry<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        registry<span class="token punctuation">.</span><span class="token function">addInterceptor</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">LoginInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addPathPatterns</span><span class="token punctuation">(</span><span class="token string">"/user/**"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">//LoginInterceptor是之前定义的拦截器，这里表示该拦截器需要拦截所有/user开头的请求</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="拦截器应用"><a href="#拦截器应用" class="headerlink" title="拦截器应用"></a>拦截器应用</h2><h3 id="创建拦截器"><a href="#创建拦截器" class="headerlink" title="创建拦截器"></a>创建拦截器</h3><ul>
+<li>在com.example.helloworld下创建interceptor包，在包中新建LoginInterceptor类，并重写preHandle方法</li>
+</ul>
+<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/image-20231022223119487.png"></p>
+<h3 id="注册拦截器"><a href="#注册拦截器" class="headerlink" title="注册拦截器"></a>注册拦截器</h3><ul>
+<li>在com.example.helloworld下创建config包，在包中新建WebConfig类，并注册LoginInterceptor拦截器</li>
+</ul>
+<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/image-20231022223605309.png"></p>
+<h3 id="测试拦截器"><a href="#测试拦截器" class="headerlink" title="测试拦截器"></a>测试拦截器</h3><ul>
+<li>在HelloController中定义相关的控制器方法，接收来自&#x2F;user这一URL的get请求</li>
+</ul>
+<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/image-20231022224049511.png"></p>
+<ul>
+<li>启动项目后在浏览器向&#x2F;user发送get请求，后端成功返回相应的数据</li>
+</ul>
+<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/image-20231022223838014.png"></p>
+<ul>
+<li>同时查看IDEA的终端，发现成功进入LoginInterceptor拦截器，输出“preHandle拦截器”字样</li>
+</ul>
+<p><img src="/2023/10/20/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/image-20231022223942782.png"></p>
+
                 
             </div>
             <hr/>
