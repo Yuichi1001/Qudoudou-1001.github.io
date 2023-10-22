@@ -429,12 +429,33 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Ruby/">
+                                <span class="chip bg-color">Ruby</span>
+                            </a>
+                        
+                            <a href="/tags/Ubuntu/">
+                                <span class="chip bg-color">Ubuntu</span>
+                            </a>
+                        
+                            <a href="/tags/Rails/">
+                                <span class="chip bg-color">Rails</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Ruby-on-Rails/" class="post-category">
+                                Ruby on Rails
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -467,7 +488,65 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h2 id="安装Ruby2-3-8"><a href="#安装Ruby2-3-8" class="headerlink" title="安装Ruby2.3.8"></a>安装Ruby2.3.8</h2><ul>
+<li>由于ubuntu22.04使用的是openssl3，于是之前安装ruby时安装的是ruby3.2.2版本。但是rotten-potatoes项目使用的ruby需要2.3.8版本，于是需要先安装ruby2.3.8</li>
+</ul>
+<h3 id="安装openssl1"><a href="#安装openssl1" class="headerlink" title="安装openssl1"></a>安装openssl1</h3><ul>
+<li>要安装ruby2.3.8版本就需要先安装openssl1，在终端输入以下命令</li>
+</ul>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">rvm pkg install openssl<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><img src="/2023/10/22/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AARails%E9%A1%B9%E7%9B%AE/image-20231022172514896.png"></p>
+<h3 id="安装ruby2-3-8"><a href="#安装ruby2-3-8" class="headerlink" title="安装ruby2.3.8"></a>安装ruby2.3.8</h3><ul>
+<li>使用命令行安装ruby2.3.8（安装时可能需要输入登录密码）</li>
+</ul>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">rvm install ruby-2.3.8<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><img src="/2023/10/22/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AARails%E9%A1%B9%E7%9B%AE/image-20231022173656581.png"></p>
+<h3 id="设置默认使用ruby2-3-8"><a href="#设置默认使用ruby2-3-8" class="headerlink" title="设置默认使用ruby2.3.8"></a>设置默认使用ruby2.3.8</h3><ul>
+<li>使用命令行配置默认使用2.3.8版本的ruby（如果是第一次安装ruby，则需要打开终端偏好设置，找到unnamed &gt; Command &gt; 勾选 Run command as login shell，并重新登录系统）</li>
+</ul>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">rvm install ruby-2.3.8 --default<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><img src="/2023/10/22/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AARails%E9%A1%B9%E7%9B%AE/image-20231022173728058.png"></p>
+<h2 id="克隆项目"><a href="#克隆项目" class="headerlink" title="克隆项目"></a>克隆项目</h2><ul>
+<li>使用命令行克隆rotten-potatoes项目</li>
+</ul>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">git clone https://gitee.com/shinabc/rotten-potatoes.git<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><img src="/2023/10/22/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AARails%E9%A1%B9%E7%9B%AE/image-20231022163514659.png"></p>
+<h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><ul>
+<li>在终端安装项目所需的nodejs以及数据库依赖</li>
+</ul>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">sudo apt install libpq-dev  (安装数据库依赖)
+sudo apt install nodejs      (安装nodejs)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="编译项目"><a href="#编译项目" class="headerlink" title="编译项目"></a>编译项目</h2><ul>
+<li>进入项目文件夹</li>
+<li>运行以下代码安装项目的所有依赖</li>
+</ul>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">bundle install --without production<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><img src="/2023/10/22/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AARails%E9%A1%B9%E7%9B%AE/image-20231022174041179.png"></p>
+<h2 id="项目初始化"><a href="#项目初始化" class="headerlink" title="项目初始化"></a>项目初始化</h2><ul>
+<li>在项目文件夹下运行以下代码来初始化项目</li>
+</ul>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">rake db:setup
+rake db:migrate           (初始化数据库)
+rake db:seed  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="/2023/10/22/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AARails%E9%A1%B9%E7%9B%AE/image-20231022174349027.png"></p>
+<h2 id="运行项目"><a href="#运行项目" class="headerlink" title="运行项目"></a>运行项目</h2><ul>
+<li>在项目文件夹下运行以下代码来启动项目</li>
+</ul>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">rails server                   (启动服务器)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><img src="/2023/10/22/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AARails%E9%A1%B9%E7%9B%AE/image-20231022174433465.png"></p>
+<ul>
+<li>打开浏览器，访问<a target="_blank" rel="noopener" href="http://localhost:3000/">http://localhost:3000/</a> ，发现项目成功运行！</li>
+</ul>
+<p><img src="/2023/10/22/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AARails%E9%A1%B9%E7%9B%AE/image-20231022174507288.png"></p>
+
                 
             </div>
             <hr/>
@@ -530,7 +609,19 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/Ruby/">
+                                    <span class="chip bg-color">Ruby</span>
+                                </a>
+                            
+                                <a href="/tags/Ubuntu/">
+                                    <span class="chip bg-color">Ubuntu</span>
+                                </a>
+                            
+                                <a href="/tags/Rails/">
+                                    <span class="chip bg-color">Rails</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -598,13 +689,33 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Yuichi
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Ruby-on-Rails/" class="post-category">
+                                    Ruby on Rails
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Ruby/">
+                        <span class="chip bg-color">Ruby</span>
+                    </a>
+                    
+                    <a href="/tags/Ubuntu/">
+                        <span class="chip bg-color">Ubuntu</span>
+                    </a>
+                    
+                    <a href="/tags/Rails/">
+                        <span class="chip bg-color">Rails</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
