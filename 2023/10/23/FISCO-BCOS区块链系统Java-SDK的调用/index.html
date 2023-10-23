@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="部署第一个Rails项目, Yuichi&#39;s Blog">
+    <meta name="keywords" content="FISCO BCOS区块链系统中Java SDK的调用, Yuichi&#39;s Blog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>部署第一个Rails项目 | Yuichi&#39;s Blog</title>
+    <title>FISCO BCOS区块链系统中Java SDK的调用 | Yuichi&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">部署第一个Rails项目</h1>
+                    <h1 class="description center-align post-title">FISCO BCOS区块链系统中Java SDK的调用</h1>
                 </div>
             </div>
         </div>
@@ -431,16 +431,20 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Ruby/">
-                                <span class="chip bg-color">Ruby</span>
+                            <a href="/tags/SpringBoot/">
+                                <span class="chip bg-color">SpringBoot</span>
                             </a>
                         
-                            <a href="/tags/Ubuntu/">
-                                <span class="chip bg-color">Ubuntu</span>
+                            <a href="/tags/Java/">
+                                <span class="chip bg-color">Java</span>
                             </a>
                         
-                            <a href="/tags/Rails/">
-                                <span class="chip bg-color">Rails</span>
+                            <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">
+                                <span class="chip bg-color">区块链</span>
+                            </a>
+                        
+                            <a href="/tags/FISCO-BCOS/">
+                                <span class="chip bg-color">FISCO BCOS</span>
                             </a>
                         
                     </div>
@@ -451,8 +455,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Ruby-on-Rails/" class="post-category">
-                                Ruby on Rails
+                            <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                区块链学习
                             </a>
                         
                     </div>
@@ -464,7 +468,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-10-22
+                    2023-10-23
                 </div>
                 
 
@@ -488,64 +492,214 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="安装Ruby2-3-8"><a href="#安装Ruby2-3-8" class="headerlink" title="安装Ruby2.3.8"></a>安装Ruby2.3.8</h2><ul>
-<li>由于ubuntu22.04使用的是openssl3，于是之前安装ruby时安装的是ruby3.2.2版本。但是rotten-potatoes项目使用的ruby需要2.3.8版本，于是需要先安装ruby2.3.8</li>
+                <h2 id="新建SpringBoot项目"><a href="#新建SpringBoot项目" class="headerlink" title="新建SpringBoot项目"></a>新建SpringBoot项目</h2><ul>
+<li>使用IDEA新建一个SpringBoot项目，使用Maven来管理依赖，SpringBoot的依赖项选择Spring Web</li>
 </ul>
-<h3 id="安装openssl1"><a href="#安装openssl1" class="headerlink" title="安装openssl1"></a>安装openssl1</h3><ul>
-<li>要安装ruby2.3.8版本就需要先安装openssl1，在终端输入以下命令</li>
+<p><img src="/2023/10/23/FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9FJava-SDK%E7%9A%84%E8%B0%83%E7%94%A8/image-20231023231031956.png"></p>
+<p><img src="/2023/10/23/FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9FJava-SDK%E7%9A%84%E8%B0%83%E7%94%A8/image-20231023231050248.png"></p>
+<h2 id="添加FISCO-BCOS区块链系统依赖"><a href="#添加FISCO-BCOS区块链系统依赖" class="headerlink" title="添加FISCO BCOS区块链系统依赖"></a>添加FISCO BCOS区块链系统依赖</h2><ul>
+<li>在pom.xml中添加FISCO BCOS区块链系统的Java SDK依赖</li>
 </ul>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">rvm pkg install openssl<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.fisco-bcos.java-sdk<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>fisco-bcos-java-sdk<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.9.1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="/2023/10/22/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AARails%E9%A1%B9%E7%9B%AE/image-20231022172514896.png"></p>
-<h3 id="安装ruby2-3-8"><a href="#安装ruby2-3-8" class="headerlink" title="安装ruby2.3.8"></a>安装ruby2.3.8</h3><ul>
-<li>使用命令行安装ruby2.3.8（安装时可能需要输入登录密码）</li>
+<h2 id="拷贝区块链秘钥"><a href="#拷贝区块链秘钥" class="headerlink" title="拷贝区块链秘钥"></a>拷贝区块链秘钥</h2><ul>
+<li>在项目目录的resources下建立新文件夹conf</li>
 </ul>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">rvm install ruby-2.3.8<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p><img src="/2023/10/22/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AARails%E9%A1%B9%E7%9B%AE/image-20231022173656581.png"></p>
-<h3 id="设置默认使用ruby2-3-8"><a href="#设置默认使用ruby2-3-8" class="headerlink" title="设置默认使用ruby2.3.8"></a>设置默认使用ruby2.3.8</h3><ul>
-<li>使用命令行配置默认使用2.3.8版本的ruby（如果是第一次安装ruby，则需要打开终端偏好设置，找到unnamed &gt; Command &gt; 勾选 Run command as login shell，并重新登录系统）</li>
-</ul>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">rvm install ruby-2.3.8 --default<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p><img src="/2023/10/22/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AARails%E9%A1%B9%E7%9B%AE/image-20231022173728058.png"></p>
-<h2 id="克隆项目"><a href="#克隆项目" class="headerlink" title="克隆项目"></a>克隆项目</h2><ul>
-<li>使用命令行克隆rotten-potatoes项目</li>
-</ul>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">git clone https://gitee.com/shinabc/rotten-potatoes.git<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p><img src="/2023/10/22/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AARails%E9%A1%B9%E7%9B%AE/image-20231022163514659.png"></p>
-<h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><ul>
-<li>在终端安装项目所需的nodejs以及数据库依赖</li>
-</ul>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">sudo apt install libpq-dev  (安装数据库依赖)
-sudo apt install nodejs      (安装nodejs)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h2 id="编译项目"><a href="#编译项目" class="headerlink" title="编译项目"></a>编译项目</h2><ul>
-<li>进入项目文件夹</li>
-<li>运行以下代码安装项目的所有依赖</li>
-</ul>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">bundle install --without production<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p><img src="/2023/10/22/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AARails%E9%A1%B9%E7%9B%AE/image-20231022174041179.png"></p>
-<h2 id="项目初始化"><a href="#项目初始化" class="headerlink" title="项目初始化"></a>项目初始化</h2><ul>
-<li>在项目文件夹下运行以下代码来初始化项目</li>
-</ul>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">rake db:setup
-rake db:migrate           (初始化数据库)
-rake db:seed  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p><img src="/2023/10/22/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AARails%E9%A1%B9%E7%9B%AE/image-20231022174349027.png"></p>
-<h2 id="运行项目"><a href="#运行项目" class="headerlink" title="运行项目"></a>运行项目</h2><ul>
-<li>在项目文件夹下运行以下代码来启动项目</li>
-</ul>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">rails server                   (启动服务器)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p><img src="/2023/10/22/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AARails%E9%A1%B9%E7%9B%AE/image-20231022174433465.png"></p>
+<p><img src="/2023/10/23/FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9FJava-SDK%E7%9A%84%E8%B0%83%E7%94%A8/image-20231023232852322.png"></p>
 <ul>
-<li>打开浏览器，访问<a target="_blank" rel="noopener" href="http://localhost:3000/">http://localhost:3000/</a> ，发现项目成功运行！</li>
+<li>将“区块链文件夹&#x2F;nodes&#x2F;${ip}&#x2F;sdk&#x2F;”目录下的证书拷贝到conf文件夹中</li>
+<li>我的区块链文件夹是fisco，部署的是本地四节点区块链，因此我这里的ip是127.0.0.1，文件夹下的证书如下</li>
 </ul>
-<p><img src="/2023/10/22/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AARails%E9%A1%B9%E7%9B%AE/image-20231022174507288.png"></p>
+<p><img src="/2023/10/23/FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9FJava-SDK%E7%9A%84%E8%B0%83%E7%94%A8/image-20231023233636633.png"></p>
+<h2 id="配置区块链系统"><a href="#配置区块链系统" class="headerlink" title="配置区块链系统"></a>配置区块链系统</h2><ul>
+<li>在项目的resources下创建配置文件 <a href="C:\Users\91363\Desktop\IDEAprojects\fiscotest\src\main\resources\fisco-config.toml">fisco-config.toml</a></li>
+</ul>
+<p><img src="/2023/10/23/FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9FJava-SDK%E7%9A%84%E8%B0%83%E7%94%A8/image-20231023234108773.png"></p>
+<ul>
+<li>下面给出fisco-config.toml的示例代码</li>
+</ul>
+<pre class="line-numbers language-toml" data-language="toml"><code class="language-toml"><span class="token punctuation">[</span><span class="token table class-name">cryptoMaterial</span><span class="token punctuation">]</span>
+<span class="token key property">certPath</span> <span class="token punctuation">=</span> <span class="token string">"conf"</span>                           <span class="token comment"># The certification path  </span>
+
+<span class="token comment"># The following configurations take the certPath by default if commented</span>
+<span class="token comment"># caCert = "conf/ca.crt"                    # CA cert file path</span>
+<span class="token comment"># If connect to the GM node, default CA cert path is $&#123;certPath&#125;/gm/gmca.crt</span>
+
+<span class="token comment"># sslCert = "conf/sdk.crt"                  # SSL cert file path</span>
+<span class="token comment"># If connect to the GM node, the default SDK cert path is $&#123;certPath&#125;/gm/gmsdk.crt</span>
+
+<span class="token comment"># sslKey = "conf/sdk.key"                   # SSL key file path</span>
+<span class="token comment"># If connect to the GM node, the default SDK privateKey path is $&#123;certPath&#125;/gm/gmsdk.key</span>
+
+<span class="token comment"># enSslCert = "conf/gm/gmensdk.crt"         # GM encryption cert file path</span>
+<span class="token comment"># default load the GM SSL encryption cert from $&#123;certPath&#125;/gm/gmensdk.crt</span>
+
+<span class="token comment"># enSslKey = "conf/gm/gmensdk.key"          # GM ssl cert file path</span>
+<span class="token comment"># default load the GM SSL encryption privateKey from $&#123;certPath&#125;/gm/gmensdk.key</span>
+
+<span class="token punctuation">[</span><span class="token table class-name">network</span><span class="token punctuation">]</span>
+<span class="token key property">peers</span><span class="token punctuation">=</span><span class="token punctuation">[</span><span class="token string">"192.168.3.54:20200"</span><span class="token punctuation">,</span> <span class="token string">"192.168.3.54:20201"</span><span class="token punctuation">,</span> <span class="token string">"192.168.3.54:20202"</span><span class="token punctuation">,</span> <span class="token string">"192.168.3.54:20203"</span><span class="token punctuation">]</span>    <span class="token comment"># The peer list to connect</span>
+
+
+<span class="token comment"># AMOP configuration</span>
+<span class="token comment"># You can use following two methods to configure as a private topic message sender or subscriber.</span>
+<span class="token comment"># Usually, the public key and private key is generated by subscriber.</span>
+<span class="token comment"># Message sender receive public key from topic subscriber then make configuration.</span>
+<span class="token comment"># But, please do not config as both the message sender and the subscriber of one private topic, or you may send the message to yourself.</span>
+
+<span class="token comment"># Configure a private topic as a topic message sender.</span>
+<span class="token comment"># [[amop]]</span>
+<span class="token comment"># topicName = "PrivateTopic"</span>
+<span class="token comment"># publicKeys = [ "conf/amop/consumer_public_key_1.pem" ]    # Public keys of the nodes that you want to send AMOP message of this topic to.</span>
+
+<span class="token comment"># Configure a private topic as a topic subscriber.</span>
+<span class="token comment"># [[amop]]</span>
+<span class="token comment"># topicName = "PrivateTopic"</span>
+<span class="token comment"># privateKey = "conf/amop/consumer_private_key.p12"         # Your private key that used to subscriber verification.</span>
+<span class="token comment"># password = "123456"</span>
+
+
+<span class="token punctuation">[</span><span class="token table class-name">account</span><span class="token punctuation">]</span>
+<span class="token key property">keyStoreDir</span> <span class="token punctuation">=</span> <span class="token string">"account"</span>         <span class="token comment"># The directory to load/store the account file, default is "account"</span>
+<span class="token comment"># accountFilePath = ""          # The account file path (default load from the path specified by the keyStoreDir)</span>
+<span class="token key property">accountFileFormat</span> <span class="token punctuation">=</span> <span class="token string">"pem"</span>       <span class="token comment"># The storage format of account file (Default is "pem", "p12" as an option)</span>
+
+<span class="token comment"># accountAddress = ""           # The transactions sending account address</span>
+<span class="token comment"># Default is a randomly generated account</span>
+<span class="token comment"># The randomly generated account is stored in the path specified by the keyStoreDir</span>
+
+<span class="token comment"># password = ""                 # The password used to load the account file</span>
+
+<span class="token punctuation">[</span><span class="token table class-name">threadPool</span><span class="token punctuation">]</span>
+<span class="token comment"># channelProcessorThreadSize = "16"         # The size of the thread pool to process channel callback</span>
+<span class="token comment"># Default is the number of cpu cores</span>
+
+<span class="token comment"># receiptProcessorThreadSize = "16"         # The size of the thread pool to process transaction receipt notification</span>
+<span class="token comment"># Default is the number of cpu cores</span>
+
+<span class="token key property">maxBlockingQueueSize</span> <span class="token punctuation">=</span> <span class="token string">"102400"</span>             <span class="token comment"># The max blocking queue size of the thread pool</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>其中主要修改peers&#x3D;[“192.168.3.54:20200”, “192.168.3.54:20201”, “192.168.3.54:20202”, “192.168.3.54:20203”]这一项，它代表你自己区块链中各个节点的ip和端口，由于我的区块链系统运行在虚拟机上，所以我这里填的是虚拟机的ip地址，如果节点运行在本机上，则这里的ip地址填写127.0.0.1</li>
+</ul>
+<h2 id="将智能合约转换成Java类"><a href="#将智能合约转换成Java类" class="headerlink" title="将智能合约转换成Java类"></a>将智能合约转换成Java类</h2><ul>
+<li>编写好的智能合约想在Java项目中使用则必须转换成Java类，FISCO BCOS系统给我们提供了转换脚本，但是我们需要先下载控制台</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> <span class="token parameter variable">-p</span> ~/fisco <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">cd</span> ~/fisco
+<span class="token comment"># 获取控制台</span>
+<span class="token function">curl</span> -<span class="token comment">#LO https://github.com/FISCO-BCOS/console/releases/download/v2.9.2/download_console.sh</span>
+
+<span class="token comment"># 若因为网络问题导致长时间无法执行以上命令，请尝试以下命令：</span>
+https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/FISCO-BCOS/console/releases/v2.9.2/download_console.sh
+
+<span class="token function">bash</span> download_console.sh
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>将需要使用到的Solidity智能合约放入<del>&#x2F;fisco&#x2F;console&#x2F;contracts&#x2F;solidity的目录。这里我使用console中的HelloWorld.sol作为例子。保证HelloWorld.sol在指定的目录下，然后进入目录</del>&#x2F;fisco&#x2F;console</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 进入目录~/fisco/console</span>
+<span class="token builtin class-name">cd</span> ~/fisco/console<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li>生成智能合约对应的Java类，这里需要根据使用的控制台版本来使用不同的命令</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">若控制台版本大于等于2.8.0：
+<span class="token comment"># 使用sol2java.sh将contracts/solidity下的所有合约编译产生bin,abi,java工具类。</span>
+<span class="token comment"># 当前目录~/fisco/console</span>
+$ <span class="token function">bash</span> sol2java.sh <span class="token parameter variable">-p</span> org.com.fisco
+<span class="token comment"># 以上命令中参数“org.com.fisco”是指定产生的java类所属的包名。</span>
+<span class="token comment"># 通过命令./sol2java.sh -h可查看该脚本使用方法</span>
+
+若控制台版本小于2.8.0：
+<span class="token comment"># 使用sol2java.sh将contracts/solidity下的所有合约编译产生bin,abi,java工具类。</span>
+<span class="token comment"># 当前目录~/fisco/console</span>
+$ <span class="token function">bash</span> sol2java.sh org.com.fisco
+<span class="token comment"># 以上命令中参数“org.com.fisco”是指定产生的java类所属的包名。</span>
+<span class="token comment"># ./sol2java.sh [packageName] [solidityFilePath] [javaCodeOutputDir]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>将生成的Java类复制到项目中，所放的位置要与我们设定的包名相同</li>
+</ul>
+<p><img src="/2023/10/23/FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9FJava-SDK%E7%9A%84%E8%B0%83%E7%94%A8/image-20231023234849576.png"></p>
+<h2 id="新建并编写控制器类"><a href="#新建并编写控制器类" class="headerlink" title="新建并编写控制器类"></a>新建并编写控制器类</h2><ul>
+<li>在项目中新建包controller，新建控制器类FiscoController，控制器代码如下</li>
+</ul>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>fiscotest<span class="token punctuation">.</span>controller</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>fiscotest<span class="token punctuation">.</span></span><span class="token class-name">HelloWorld</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>fisco<span class="token punctuation">.</span>bcos<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span></span><span class="token class-name">BcosSDK</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>fisco<span class="token punctuation">.</span>bcos<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>client<span class="token punctuation">.</span></span><span class="token class-name">Client</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>fisco<span class="token punctuation">.</span>bcos<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>crypto<span class="token punctuation">.</span>keypair<span class="token punctuation">.</span></span><span class="token class-name">CryptoKeyPair</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">GetMapping</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">PostMapping</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">RestController</span></span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@RestController</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FiscoController</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token class-name">String</span> configFile <span class="token operator">=</span> <span class="token class-name">FiscoController</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getResource</span><span class="token punctuation">(</span><span class="token string">"fisco-config.toml"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getPath</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">BcosSDK</span> sdk <span class="token operator">=</span>  <span class="token class-name">BcosSDK</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span>configFile<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">Client</span> client <span class="token operator">=</span> sdk<span class="token punctuation">.</span><span class="token function">getClient</span><span class="token punctuation">(</span><span class="token class-name">Integer</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token class-name">HelloWorld</span> helloWorld<span class="token operator">=</span><span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/deploy"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">deploycontract</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span><span class="token punctuation">&#123;</span>
+        <span class="token class-name">CryptoKeyPair</span> cryptoKeyPair <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">getCryptoSuite</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getCryptoKeyPair</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        helloWorld <span class="token operator">=</span> <span class="token class-name">HelloWorld</span><span class="token punctuation">.</span><span class="token function">deploy</span><span class="token punctuation">(</span>client<span class="token punctuation">,</span>cryptoKeyPair<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"deploy success!!"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/get"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getcontract</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span><span class="token punctuation">&#123;</span>
+        <span class="token class-name">String</span> value <span class="token operator">=</span> helloWorld<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"ContractValue="</span><span class="token operator">+</span>value<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">"/set"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">setcontract</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span><span class="token punctuation">&#123;</span>
+        helloWorld<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> value <span class="token operator">=</span> helloWorld<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"set success!! now ContractValue="</span><span class="token operator">+</span>value<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h2 id="测试Java-SDK"><a href="#测试Java-SDK" class="headerlink" title="测试Java SDK"></a>测试Java SDK</h2><ul>
+<li>运行SpringBoot项目</li>
+<li>进入虚拟机中运行区块链节点</li>
+</ul>
+<p><img src="/2023/10/23/FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9FJava-SDK%E7%9A%84%E8%B0%83%E7%94%A8/image-20231023235049515.png"></p>
+<ul>
+<li>进入区块链中运行区块链浏览器</li>
+</ul>
+<p><img src="/2023/10/23/FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9FJava-SDK%E7%9A%84%E8%B0%83%E7%94%A8/image-20231023235149085.png"></p>
+<ul>
+<li>在本机通过访问http:&#x2F;&#x2F;${虚拟机ip}:5100,成功进入区块链浏览器</li>
+</ul>
+<p><img src="/2023/10/23/FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9FJava-SDK%E7%9A%84%E8%B0%83%E7%94%A8/image-20231023235516137.png"></p>
+<ul>
+<li>在本机通过浏览器测试智能合约的部署</li>
+</ul>
+<p><img src="/2023/10/23/FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9FJava-SDK%E7%9A%84%E8%B0%83%E7%94%A8/image-20231023235529721.png"></p>
+<ul>
+<li>在本机通过浏览器测试智能合约名称的获取</li>
+</ul>
+<p><img src="/2023/10/23/FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9FJava-SDK%E7%9A%84%E8%B0%83%E7%94%A8/image-20231023235547488.png"></p>
+<ul>
+<li>在本机通过ApiPost测试智能合约名称的修改</li>
+</ul>
+<p><img src="/2023/10/23/FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9FJava-SDK%E7%9A%84%E8%B0%83%E7%94%A8/image-20231023235626718.png"></p>
+<ul>
+<li>经过以上测试之后刷新区块链浏览器，发现数据成功变化，Java SDK在我们的项目中成功的进行调用</li>
+</ul>
+<p><img src="/2023/10/23/FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9FJava-SDK%E7%9A%84%E8%B0%83%E7%94%A8/image-20231023235715624.png"></p>
 
                 
             </div>
@@ -572,7 +726,7 @@ rake db:seed  <span aria-hidden="true" class="line-numbers-rows"><span></span><s
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://yuichi.top/2023/10/22/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AARails%E9%A1%B9%E7%9B%AE/">https://yuichi.top/2023/10/22/%E9%83%A8%E7%BD%B2%E7%AC%AC%E4%B8%80%E4%B8%AARails%E9%A1%B9%E7%9B%AE/</a>
+                    <a href="https://yuichi.top/2023/10/23/FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9FJava-SDK%E7%9A%84%E8%B0%83%E7%94%A8/">https://yuichi.top/2023/10/23/FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9FJava-SDK%E7%9A%84%E8%B0%83%E7%94%A8/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -610,16 +764,20 @@ rake db:seed  <span aria-hidden="true" class="line-numbers-rows"><span></span><s
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Ruby/">
-                                    <span class="chip bg-color">Ruby</span>
+                                <a href="/tags/SpringBoot/">
+                                    <span class="chip bg-color">SpringBoot</span>
                                 </a>
                             
-                                <a href="/tags/Ubuntu/">
-                                    <span class="chip bg-color">Ubuntu</span>
+                                <a href="/tags/Java/">
+                                    <span class="chip bg-color">Java</span>
                                 </a>
                             
-                                <a href="/tags/Rails/">
-                                    <span class="chip bg-color">Rails</span>
+                                <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">
+                                    <span class="chip bg-color">区块链</span>
+                                </a>
+                            
+                                <a href="/tags/FISCO-BCOS/">
+                                    <span class="chip bg-color">FISCO BCOS</span>
                                 </a>
                             
                         </div>
@@ -663,17 +821,18 @@ rake db:seed  <span aria-hidden="true" class="line-numbers-rows"><span></span><s
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2023/10/23/SpringBoot-Vue%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89/">
+                <a href="/2023/10/23/FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9FJava-SDK%E7%9A%84%E8%B0%83%E7%94%A8/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="SpringBoot-Vue学习（四）">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="FISCO BCOS区块链系统中Java SDK的调用">
                         
-                        <span class="card-title">SpringBoot-Vue学习（四）</span>
+                        <span class="card-title">FISCO BCOS区块链系统中Java SDK的调用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -683,21 +842,22 @@ rake db:seed  <span aria-hidden="true" class="line-numbers-rows"><span></span><s
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-10-23
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-10-23
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/SpringBoot-Vue/" class="post-category">
-                                    SpringBoot+Vue
+                            <a href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    区块链学习
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -705,16 +865,16 @@ rake db:seed  <span aria-hidden="true" class="line-numbers-rows"><span></span><s
                         <span class="chip bg-color">SpringBoot</span>
                     </a>
                     
-                    <a href="/tags/Vue/">
-                        <span class="chip bg-color">Vue</span>
-                    </a>
-                    
-                    <a href="/tags/Web/">
-                        <span class="chip bg-color">Web</span>
-                    </a>
-                    
                     <a href="/tags/Java/">
                         <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">
+                        <span class="chip bg-color">区块链</span>
+                    </a>
+                    
+                    <a href="/tags/FISCO-BCOS/">
+                        <span class="chip bg-color">FISCO BCOS</span>
                     </a>
                     
                 </div>
@@ -728,13 +888,13 @@ rake db:seed  <span aria-hidden="true" class="line-numbers-rows"><span></span><s
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/10/21/%E5%9C%A8Ubuntu22-04%E4%B8%AD%E5%AE%89%E8%A3%85Ruby/">
+                <a href="/2023/10/23/VmWare-ubuntu22-04%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%BC%82%E5%B8%B8%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="在Ubuntu22.04中安装Ruby">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="VmWare ubuntu22.04虚拟机网络异常的解决方法">
                         
-                        <span class="card-title">在Ubuntu22.04中安装Ruby</span>
+                        <span class="card-title">VmWare ubuntu22.04虚拟机网络异常的解决方法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -745,14 +905,14 @@ rake db:seed  <span aria-hidden="true" class="line-numbers-rows"><span></span><s
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-10-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-10-23
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Ruby-on-Rails/" class="post-category">
-                                    Ruby on Rails
+                            <a href="/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="post-category">
+                                    开发问题与解决方法
                                 </a>
                             
                             
@@ -762,12 +922,16 @@ rake db:seed  <span aria-hidden="true" class="line-numbers-rows"><span></span><s
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Ruby/">
-                        <span class="chip bg-color">Ruby</span>
+                    <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">
+                        <span class="chip bg-color">虚拟机</span>
                     </a>
                     
-                    <a href="/tags/Ubuntu/">
-                        <span class="chip bg-color">Ubuntu</span>
+                    <a href="/tags/ubuntu/">
+                        <span class="chip bg-color">ubuntu</span>
+                    </a>
+                    
+                    <a href="/tags/bug/">
+                        <span class="chip bg-color">bug</span>
                     </a>
                     
                 </div>
