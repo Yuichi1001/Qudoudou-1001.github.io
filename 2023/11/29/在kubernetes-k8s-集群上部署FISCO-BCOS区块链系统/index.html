@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="使用Docker容器化部署FISCO BCOS区块链系统, Yuichi&#39;s Blog">
+    <meta name="keywords" content="在kubernetes(k8s)集群上部署FISCO BCOS区块链系统, Yuichi&#39;s Blog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>使用Docker容器化部署FISCO BCOS区块链系统 | Yuichi&#39;s Blog</title>
+    <title>在kubernetes(k8s)集群上部署FISCO BCOS区块链系统 | Yuichi&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">使用Docker容器化部署FISCO BCOS区块链系统</h1>
+                    <h1 class="description center-align post-title">在kubernetes(k8s)集群上部署FISCO BCOS区块链系统</h1>
                 </div>
             </div>
         </div>
@@ -443,6 +443,10 @@
                                 <span class="chip bg-color">Docker</span>
                             </a>
                         
+                            <a href="/tags/Kubernetes/">
+                                <span class="chip bg-color">Kubernetes</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -464,7 +468,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-11-22
+                    2023-11-29
                 </div>
                 
 
@@ -489,88 +493,125 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><ul>
-<li><p>ubuntu22.04</p>
-</li>
-<li><p>Docker</p>
-</li>
-<li><p>安装openssl</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> <span class="token parameter variable">-y</span> <span class="token function">curl</span> openssl<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li>三台ubuntu22.04主机（分别为<code>ubuntu：192.168.3.54</code>；<code>worker1:192.168.3.57</code>；<code>worker2:192.168.3.58</code>）</li>
+<li>安装docker，kubernetes</li>
+<li>三台主机加入同一kubernetes集群</li>
 </ul>
-<h2 id="搭建单群组的四节点区块链"><a href="#搭建单群组的四节点区块链" class="headerlink" title="搭建单群组的四节点区块链"></a>搭建单群组的四节点区块链</h2><p>本文将详细讲解“在本地模拟多台机器搭建单群组的四节点区块链”以及“在多台机器上搭建单群组的四节点区块链”这两种情景的搭建方法</p>
-<h3 id="在本地模拟多台机器来搭建单群组的四节点区块链"><a href="#在本地模拟多台机器来搭建单群组的四节点区块链" class="headerlink" title="在本地模拟多台机器来搭建单群组的四节点区块链"></a>在本地模拟多台机器来搭建单群组的四节点区块链</h3><ul>
-<li><p>下载FISCO BCOS官方的安装脚本</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">## 创建操作目录</span>
-<span class="token builtin class-name">cd</span> ~ <span class="token operator">&amp;&amp;</span> <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> fisco <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">cd</span> fisco
-
-<span class="token comment">## 下载脚本</span>
-<span class="token function">curl</span> -<span class="token comment">#LO https://github.com/FISCO-BCOS/FISCO-BCOS/releases/download/v2.9.1/build_chain.sh &amp;&amp; chmod u+x build_chain.sh</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="创建区块链"><a href="#创建区块链" class="headerlink" title="创建区块链"></a>创建区块链</h2><ul>
+<li><p>使用上篇文章《使用Docker容器化部署FISCO-BCOS区块链系统》中的方法，在ubuntu这台主机上生成运行在三台主机上的区块链节点</p>
+<p><img src="/2023/11/29/%E5%9C%A8kubernetes-k8s-%E9%9B%86%E7%BE%A4%E4%B8%8A%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/image-20231129233416152.png"></p>
 </li>
-<li><p>进入之前创建的fisco目录，执行以下指令即可在本地生成一条单群组的四节点区块链。其中，<code>-d</code>参数表示使用docker来构建区块链。请确保机器的<code>30300~30303，20200~20203，8545~8548</code>端口没有被占用，也可以通过<code>-p</code>参数指定其他端口</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">bash</span> build_chain.sh <span class="token parameter variable">-d</span> <span class="token parameter variable">-l</span> <span class="token number">127.0</span>.0.1:4 <span class="token parameter variable">-p</span> <span class="token number">30300,20200</span>,8545<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p><img src="/2023/11/22/%E4%BD%BF%E7%94%A8Docker%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/image-20231122162124487.png"></p>
-</li>
-<li><p>执行<code>bash nodes/127.0.0.1/start_all.sh</code>命令来启动区块链。这行命令相当于进入每个节点目录后自动运行<code>docker run -d --rm --name $&#123;nodePath&#125; -v $&#123;nodePath&#125;:/data --network=host -w=/data fiscoorg/fiscobcos:latest -c config.ini</code>指令。运行<code>start_all.sh</code>时，机器会自动检查本地是否存在FISCO-BCOS对应版本的节点镜像，如果不存在的话则会从docker hub上下载</p>
-<p><img src="/2023/11/22/%E4%BD%BF%E7%94%A8Docker%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/image-20231122162202723.png"></p>
-</li>
-<li><p>可以通过以下命令检查容器状态是否正常</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> <span class="token function">ps</span> <span class="token parameter variable">-a</span> <span class="token operator">|</span> <span class="token function">egrep</span> fiscobcos<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p><img src="/2023/11/22/%E4%BD%BF%E7%94%A8Docker%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/image-20231122162231831.png"></p>
-</li>
-<li><p>可以通过检查日志来确认节点的p2p连接数目以及共识是否正常</p>
+<li><p>分别进入三个文件夹中，修改节点的配置信息，我这里以修改192.168.3.54主机上的节点信息为示例(若不进行修改，则之后无法在区块链浏览器中正确绑定区块链节点)</p>
 <ul>
-<li><p>查看节点node0连接的节点数</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">tail</span> <span class="token parameter variable">-f</span> nodes/127.0.0.1/node0/log/log*  <span class="token operator">|</span> <span class="token function">grep</span> connected<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p><img src="/2023/11/22/%E4%BD%BF%E7%94%A8Docker%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/image-20231122162314782.png"></p>
+<li><p>进入<code>192.168.3.54/node0</code>文件夹，打开<code>config.ini文件</code></p>
+<p><img src="/2023/11/29/%E5%9C%A8kubernetes-k8s-%E9%9B%86%E7%BE%A4%E4%B8%8A%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/image-20231130000036370.png"></p>
 </li>
-<li><p>检查共识</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">tail</span> <span class="token parameter variable">-f</span> nodes/127.0.0.1/node0/log/log*  <span class="token operator">|</span> <span class="token function">grep</span> +++<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p><img src="/2023/11/22/%E4%BD%BF%E7%94%A8Docker%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/image-20231122162337416.png"></p>
+<li><p>将<code>jsonrpc_listen_ip</code>这一项从<code>127.0.0.1</code>更改为对应的主机ip，我这里是<code>192.168.3.54</code></p>
+<p><img src="/2023/11/29/%E5%9C%A8kubernetes-k8s-%E9%9B%86%E7%BE%A4%E4%B8%8A%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/image-20231130000110116.png"></p>
 </li>
 </ul>
 </li>
+<li><p>在worker1和worker2主机上都新建<code>fisco/nodes</code>文件夹，并将ubuntu主机上生成的<code>192.168.3.57文件夹</code>和<code>192.168.3.58文件夹</code>分别拷贝到这两台主机的<code>fisco/nodes</code>文件夹下</p>
+</li>
 </ul>
-<h3 id="在多台机器上搭建单群组的四节点区块链"><a href="#在多台机器上搭建单群组的四节点区块链" class="headerlink" title="在多台机器上搭建单群组的四节点区块链"></a>在多台机器上搭建单群组的四节点区块链</h3><ul>
-<li><p>假设有四台机器，IP地址分别为<code>192.168.1.2</code>、<code>192.168.1.3</code>、<code>192.168.1.4</code>、<code>192.168.1.5</code>。现在需要在这四台机器上使用docker部署单群组的四节点区块链，每台机器分别部署一个节点。</p>
+<h2 id="新建k8s配置文件"><a href="#新建k8s配置文件" class="headerlink" title="新建k8s配置文件"></a>新建k8s配置文件</h2><ul>
+<li><p>在ubuntu主机上新建名为<code>my-pod.yaml</code>的kubernetes配置文件，该文件用于启用ubuntu主机上的区块链节点，配置文件内容如下</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">apiVersion: v1
+kind: Pod
+metadata:
+  name: <span class="token number">54</span>-node0
+spec:
+  nodeName: ubuntu
+  hostNetwork: <span class="token boolean">true</span>
+  containers:
+  - name: <span class="token number">54</span>-node0
+    image: fiscoorg/fiscobcos:v2.9.1
+    args: <span class="token punctuation">[</span><span class="token string">"-c"</span>, <span class="token string">"config.ini"</span><span class="token punctuation">]</span>
+    workingDir: /data
+    ports:
+    - containerPort: <span class="token number">30300</span>
+    - containerPort: <span class="token number">20200</span>
+    - containerPort: <span class="token number">8545</span>
+    volumeMounts:
+    - name: fisco-volume
+      mountPath: /data
+  volumes:
+  - name: fisco-volume
+    hostPath:
+      path: /home/qudoudou/fisco/nodes/192.168.3.54/node0
+      type: Directory<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>在<code>192.168.1.2</code>上下载FISCO BCOS官方的安装脚本</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">## 创建操作目录</span>
-<span class="token builtin class-name">cd</span> ~ <span class="token operator">&amp;&amp;</span> <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> fisco <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">cd</span> fisco
-
-<span class="token comment">## 下载脚本</span>
-<span class="token function">curl</span> -<span class="token comment">#LO https://github.com/FISCO-BCOS/FISCO-BCOS/releases/download/v2.9.1/build_chain.sh &amp;&amp; chmod u+x build_chain.sh</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<li><p>新建名为<code>worker1-pod.yaml</code>的kubernetes配置文件，该文件用于启用worker1主机上的区块链节点，配置文件内容如下</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">apiVersion: v1
+kind: Pod
+metadata:
+  name: <span class="token number">57</span>-node1
+spec:
+  nodeName: worker1
+  hostNetwork: <span class="token boolean">true</span>
+  containers:
+  - name: <span class="token number">57</span>-node1
+    image: fiscoorg/fiscobcos:v2.9.1
+    args: <span class="token punctuation">[</span><span class="token string">"-c"</span>, <span class="token string">"config.ini"</span><span class="token punctuation">]</span>
+    workingDir: /data
+    ports:
+    - containerPort: <span class="token number">30300</span>
+    - containerPort: <span class="token number">20200</span>
+    - containerPort: <span class="token number">8545</span>
+    volumeMounts:
+    - name: fisco-volume
+      mountPath: /data
+  volumes:
+  - name: fisco-volume
+    hostPath:
+      path: /home/qudoudou/fisco/nodes/192.168.3.57/node0
+      type: Directory<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>进入<code>192.168.1.2</code>的fisco文件夹，新建ipconf文件并写入以下内容</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">192.168</span>.1.2:1 agency1 <span class="token number">1</span>
-<span class="token number">192.168</span>.1.3:1 agency1 <span class="token number">1</span>
-<span class="token number">192.168</span>.1.4:1 agency1 <span class="token number">1</span>
-<span class="token number">192.168</span>.1.5:1 agency1 <span class="token number">1</span>
-
-
-<span class="token comment">#按行分割，每一行表示一个服务器，格式为`IP:NUM AgencyName GroupList`，每行内的项使用空格分割，**不可有空行**。</span>
-<span class="token comment">#`IP:NUM`表示机器的IP地址以及该机器上的节点数。`AgencyName`表示机构名，用于指定使用的机构证书。`GroupList`表示该行生成的节点所属的组，以`,`分割。例如`192.168.0.2:2 agency1 1,2`表示`ip`为`192.168.0.2`的机器上有两个节点，这两个节点属于机构`agency1`，属于group1和group2。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><img src="/2023/11/22/%E4%BD%BF%E7%94%A8Docker%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/image-20231122165300962.png"></p>
+<li><p>新建名为<code>worker2-pod.yaml</code>的kubernetes配置文件，该文件用于启用worker2主机上的区块链节点，配置文件内容如下</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">apiVersion: v1
+kind: Pod
+metadata:
+  name: <span class="token number">58</span>-node2
+spec:
+  nodeName: worker2
+  hostNetwork: <span class="token boolean">true</span>
+  containers:
+  - name: <span class="token number">58</span>-node2
+    image: fiscoorg/fiscobcos:v2.9.1
+    args: <span class="token punctuation">[</span><span class="token string">"-c"</span>, <span class="token string">"config.ini"</span><span class="token punctuation">]</span>
+    workingDir: /data
+    ports:
+    - containerPort: <span class="token number">30300</span>
+    - containerPort: <span class="token number">20200</span>
+    - containerPort: <span class="token number">8545</span>
+    volumeMounts:
+    - name: fisco-volume
+      mountPath: /data
+  volumes:
+  - name: fisco-volume
+    hostPath:
+      path: /home/qudoudou/fisco/nodes/192.168.3.58/node0
+      type: Directory<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><p>在<code>192.168.1.2</code>的fisco文件夹里执行以下指令生成区块链节点文件，<code>-f</code>表示从配置文件fiscoconf中读取配置</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">bash</span> build_chain.sh <span class="token parameter variable">-d</span> <span class="token parameter variable">-f</span> ipconf <span class="token parameter variable">-p</span> <span class="token number">30300,20200</span>,8545 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>注意：以上三个配置文件可以写在同一个文件中。配置文件里<code>hostNetwork: true</code>表示启动的pod会使用宿主机网络的命名空间，因此k8s集群外的服务可以直接用机器ip+port的方式来获取区块链的信息，方便后续的使用。同时配置文件里还创建了一个路径为<code>/home/qudoudou/fisco/nodes/192.168.3.58/node0</code>的挂载，将该区块链节点的文件夹挂载到pod里，之后pod产生的数据就会存储在该文件夹里，这里的路径需要根据第一步拷贝区块链节点时的位置而定</p>
+</li>
 </ul>
-<p><img src="/2023/11/22/%E4%BD%BF%E7%94%A8Docker%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/image-20231122165355227.png"></p>
+<h2 id="启动区块链节点"><a href="#启动区块链节点" class="headerlink" title="启动区块链节点"></a>启动区块链节点</h2><p>使用<code>kubectl apply -f my-pod.yaml</code>、<code>kubectl apply -f worker1-pod.yaml</code>、<code>kubectl apply -f worker2-pod.yaml</code>三条语句启动区块链节点</p>
 <ul>
-<li><p>执行成功后将会在<code>192.168.1.2</code>机器下的<code>fisco/nodes</code>文件夹下生成以下文件</p>
-<p><img src="/2023/11/22/%E4%BD%BF%E7%94%A8Docker%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/image-20231122165646718.png"></p>
+<li>使用<code>kubectl get pod</code>查询三个节点是否都启动成功</li>
+</ul>
+<p><img src="/2023/11/29/%E5%9C%A8kubernetes-k8s-%E9%9B%86%E7%BE%A4%E4%B8%8A%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/image-20231129235256611.png"></p>
+<ul>
+<li><p>进入ubuntu主机的fisco文件夹，使用<code>tail -f nodes/192.168.3.54/node0/log/log*  | grep connected</code>命令查看ubuntu主机上的节点与其他两台机器上的节点的连接情况，发现连接数量为2，证明三个节点都成功上链</p>
+<p><img src="/2023/11/29/%E5%9C%A8kubernetes-k8s-%E9%9B%86%E7%BE%A4%E4%B8%8A%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/image-20231129235455604.png"></p>
 </li>
-<li><p>在其他主机上都新建<code>fisco/nodes</code>文件夹，并将<code>192.168.1.2</code>机器上的<code>fisco/nodes</code>文件夹中的<code>192.168.1.3</code>、<code>192.168.1.4</code>以及<code>192.168.1.5</code>这三个文件夹分别拷贝到其余三台机器中</p>
+</ul>
+<h2 id="查看区块链信息"><a href="#查看区块链信息" class="headerlink" title="查看区块链信息"></a>查看区块链信息</h2><ul>
+<li><p>启动区块链浏览器，配置群组和节点</p>
+<p><img src="/2023/11/29/%E5%9C%A8kubernetes-k8s-%E9%9B%86%E7%BE%A4%E4%B8%8A%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/image-20231129235618905.png"></p>
 </li>
-<li><p>进入四台主机上的<code>fisco/nodes/*</code>文件夹中（<code>*</code>代表各自机器的IP)，各自运行如下指令启动各自的节点</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">bash</span> start_all.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>运行该指令时，每台机器都会先检查自己机器上是否存在fisco镜像，如果不存在则从docker hub上下载</p>
-</li>
-<li><p>至此，在四台机器上搭建属于同一群组的四节点区块链成功！检查区块链共识以及上链节点数的方法与上文中的在单台机器上的检查方法相同</p>
+<li><p>成功连接上三台机器上的节点，对节点进行HelloWorld合约的部署等操作后，可以在区块链浏览器里成功观测到交易数量等信息发生改变</p>
+<p><img src="/2023/11/29/%E5%9C%A8kubernetes-k8s-%E9%9B%86%E7%BE%A4%E4%B8%8A%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/image-20231129235751949.png"></p>
 </li>
 </ul>
 
@@ -599,7 +640,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://yuichi.top/2023/11/22/%E4%BD%BF%E7%94%A8Docker%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/">https://yuichi.top/2023/11/22/%E4%BD%BF%E7%94%A8Docker%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/</a>
+                    <a href="https://yuichi.top/2023/11/29/%E5%9C%A8kubernetes-k8s-%E9%9B%86%E7%BE%A4%E4%B8%8A%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/">https://yuichi.top/2023/11/29/%E5%9C%A8kubernetes-k8s-%E9%9B%86%E7%BE%A4%E4%B8%8A%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -649,6 +690,10 @@
                                     <span class="chip bg-color">Docker</span>
                                 </a>
                             
+                                <a href="/tags/Kubernetes/">
+                                    <span class="chip bg-color">Kubernetes</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -690,9 +735,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2023/11/29/%E5%9C%A8kubernetes-k8s-%E9%9B%86%E7%BE%A4%E4%B8%8A%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/">
                     <div class="card-image">
@@ -710,9 +756,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-11-29
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-11-29
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -725,6 +771,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -755,13 +802,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/10/27/%E5%9C%A8FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F%E4%B8%AD%E4%BD%BF%E7%94%A8Java-SDK-Demo%E8%BF%9B%E8%A1%8C%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/">
+                <a href="/2023/11/22/%E4%BD%BF%E7%94%A8Docker%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2FISCO-BCOS%E5%8C%BA%E5%9D%97%E9%93%BE%E7%B3%BB%E7%BB%9F/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="在FISCO BCOS区块链系统中使用Java SDK Demo进行压力测试">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="使用Docker容器化部署FISCO BCOS区块链系统">
                         
-                        <span class="card-title">在FISCO BCOS区块链系统中使用Java SDK Demo进行压力测试</span>
+                        <span class="card-title">使用Docker容器化部署FISCO BCOS区块链系统</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -772,7 +819,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-10-27
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-11-22
                             </span>
                         <span class="publish-author">
                             
@@ -789,16 +836,16 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Java/">
-                        <span class="chip bg-color">Java</span>
-                    </a>
-                    
                     <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">
                         <span class="chip bg-color">区块链</span>
                     </a>
                     
                     <a href="/tags/FISCO-BCOS/">
                         <span class="chip bg-color">FISCO BCOS</span>
+                    </a>
+                    
+                    <a href="/tags/Docker/">
+                        <span class="chip bg-color">Docker</span>
                     </a>
                     
                 </div>
