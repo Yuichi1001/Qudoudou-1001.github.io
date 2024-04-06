@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="国科大-高性能计算编程-作业二, Yuichi&#39;s Blog">
+    <meta name="keywords" content="国科大-高性能计算编程-作业三, Yuichi&#39;s Blog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>国科大-高性能计算编程-作业二 | Yuichi&#39;s Blog</title>
+    <title>国科大-高性能计算编程-作业三 | Yuichi&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">国科大-高性能计算编程-作业二</h1>
+                    <h1 class="description center-align post-title">国科大-高性能计算编程-作业三</h1>
                 </div>
             </div>
         </div>
@@ -460,7 +460,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-03-22
+                    2024-04-06
                 </div>
                 
 
@@ -484,459 +484,128 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="作业题目"><a href="#作业题目" class="headerlink" title="作业题目"></a>作业题目</h2><p><img src="/2024/03/22/%E5%9B%BD%E7%A7%91%E5%A4%A7-%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B-%E4%BD%9C%E4%B8%9A%E4%BA%8C/image-20240322125653553.png"></p>
-<h2 id="提交内容一：平台信息"><a href="#提交内容一：平台信息" class="headerlink" title="提交内容一：平台信息"></a>提交内容一：平台信息</h2><ul>
-<li>本次作业在Windows平台上进行了内容实现，具体平台信息如下</li>
+                <h2 id="作业题目"><a href="#作业题目" class="headerlink" title="作业题目"></a>作业题目</h2><p><img src="/2024/04/06/%E5%9B%BD%E7%A7%91%E5%A4%A7-%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B-%E4%BD%9C%E4%B8%9A%E4%B8%89/image-20240406193439601.png"></p>
+<h2 id="提交内容一：改写代码"><a href="#提交内容一：改写代码" class="headerlink" title="提交内容一：改写代码"></a>提交内容一：改写代码</h2><h3 id="原代码编译运行结果"><a href="#原代码编译运行结果" class="headerlink" title="原代码编译运行结果"></a>原代码编译运行结果</h3><p><img src="/2024/04/06/%E5%9B%BD%E7%A7%91%E5%A4%A7-%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B-%E4%BD%9C%E4%B8%9A%E4%B8%89/image-20240406193723869.png"></p>
+<h3 id="使用avx进行向量化"><a href="#使用avx进行向量化" class="headerlink" title="使用avx进行向量化"></a>使用avx进行向量化</h3><ul>
+<li>编译运行结果</li>
 </ul>
-<h3 id="Windows平台"><a href="#Windows平台" class="headerlink" title="Windows平台"></a>Windows平台</h3><ul>
-<li><p>系统：Win11-23H2</p>
-</li>
-<li><p>CPU：i9-13900HX(x86)</p>
-</li>
-<li><p>内存：64G</p>
-</li>
-<li><p>IDE：CLion</p>
-</li>
-<li><p>编译器：MinGW</p>
-</li>
+<p><img src="/2024/04/06/%E5%9B%BD%E7%A7%91%E5%A4%A7-%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B-%E4%BD%9C%E4%B8%9A%E4%B8%89/image-20240406193837283.png"></p>
+<ul>
+<li>代码详情</li>
 </ul>
-<h2 id="提交内容二：原代码、SoA及各优化方式的运行结果"><a href="#提交内容二：原代码、SoA及各优化方式的运行结果" class="headerlink" title="提交内容二：原代码、SoA及各优化方式的运行结果"></a>提交内容二：原代码、SoA及各优化方式的运行结果</h2><h3 id="原代码的运行结果"><a href="#原代码的运行结果" class="headerlink" title="原代码的运行结果"></a>原代码的运行结果</h3><p><img src="/2024/03/22/%E5%9B%BD%E7%A7%91%E5%A4%A7-%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B-%E4%BD%9C%E4%B8%9A%E4%BA%8C/6dac904befb23fc1036c477ffb5d7647.png"></p>
-<h3 id="SoA方式的运行结果"><a href="#SoA方式的运行结果" class="headerlink" title="SoA方式的运行结果"></a>SoA方式的运行结果</h3><p><img src="/2024/03/22/%E5%9B%BD%E7%A7%91%E5%A4%A7-%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B-%E4%BD%9C%E4%B8%9A%E4%BA%8C/9c30035755d863ffd48e868c4ec4b115.png"></p>
-<h3 id="SoA方式下使用内存对齐进行优化的运行结果"><a href="#SoA方式下使用内存对齐进行优化的运行结果" class="headerlink" title="SoA方式下使用内存对齐进行优化的运行结果"></a>SoA方式下使用内存对齐进行优化的运行结果</h3><p><img src="/2024/03/22/%E5%9B%BD%E7%A7%91%E5%A4%A7-%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B-%E4%BD%9C%E4%B8%9A%E4%BA%8C/image-20240322140140642.png"></p>
-<h3 id="SoA方式下使用循环展开进行优化的运行结果"><a href="#SoA方式下使用循环展开进行优化的运行结果" class="headerlink" title="SoA方式下使用循环展开进行优化的运行结果"></a>SoA方式下使用循环展开进行优化的运行结果</h3><p><img src="/2024/03/22/%E5%9B%BD%E7%A7%91%E5%A4%A7-%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B-%E4%BD%9C%E4%B8%9A%E4%BA%8C/image-20240322141032001.png"></p>
-<h3 id="数据统计"><a href="#数据统计" class="headerlink" title="数据统计"></a>数据统计</h3><table>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">bool Convolve1D_Ks5_F64_cpp_AVX(double *__restrict__ y, const double * __restrict__ x, const double*  __restrict__ kernel, int64_t num_pts) &#123;
+    constexpr int64_t kernel_size &#x3D; 5;
+    constexpr int64_t ks2 &#x3D; kernel_size &#x2F; 2;
+    if (num_pts &lt; kernel_size) &#123;
+        return false;
+    &#125;
+    for (int64_t i &#x3D; ks2; i &lt; num_pts - ks2; i +&#x3D; 4) &#123;
+        __m256d k2 &#x3D; _mm256_set1_pd(kernel[ks2 - 2]);
+        __m256d k1 &#x3D; _mm256_set1_pd(kernel[ks2 - 1]);
+        __m256d k0 &#x3D; _mm256_set1_pd(kernel[ks2]);
+        __m256d kn1 &#x3D; _mm256_set1_pd(kernel[ks2 + 1]);
+        __m256d kn2 &#x3D; _mm256_set1_pd(kernel[ks2 + 2]);
+
+        __m256d x2 &#x3D; _mm256_loadu_pd(x + i + 2);
+        __m256d x1 &#x3D; _mm256_loadu_pd(x + i + 1);
+        __m256d x0 &#x3D; _mm256_loadu_pd(x + i);
+        __m256d xn1 &#x3D; _mm256_loadu_pd(x + i - 1);
+        __m256d xn2 &#x3D; _mm256_loadu_pd(x + i - 2);
+
+        __m256d y0 &#x3D; _mm256_mul_pd(k2, x2);
+        __m256d y1 &#x3D; _mm256_mul_pd(k1, x1);
+        __m256d y2 &#x3D; _mm256_mul_pd(k0, x0);
+        __m256d y3 &#x3D; _mm256_mul_pd(kn1, xn1);
+        __m256d y4 &#x3D; _mm256_mul_pd(kn2, xn2);
+        
+        __m256d result &#x3D; _mm256_add_pd(_mm256_add_pd(_mm256_add_pd(y0, y1), _mm256_add_pd(y2, y3)), y4);
+        
+        _mm256_storeu_pd(y + i, result);
+    &#125;
+    return true;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="使用avx2进行向量化"><a href="#使用avx2进行向量化" class="headerlink" title="使用avx2进行向量化"></a>使用avx2进行向量化</h3><ul>
+<li>avx2在avx的基础上进行了一些扩展，新增了FMA(融合乘法和加法)、gather(从非连续内存位置加载数据到一个寄存器中)、permute(在寄存器内重新排列数据)等新的方法</li>
+<li>因此我在代码中尝试融入fma方法，试试能不能再次降低运行时间</li>
+<li>编译运行时间</li>
+</ul>
+<p><img src="/2024/04/06/%E5%9B%BD%E7%A7%91%E5%A4%A7-%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B-%E4%BD%9C%E4%B8%9A%E4%B8%89/image-20240406194753888.png"></p>
+<ul>
+<li>代码详情</li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">bool Convolve1D_Ks5_F64_cpp_AVX2(double *__restrict__ y, const double * __restrict__ x, const double*  __restrict__ kernel, int64_t num_pts) &#123;
+    constexpr int64_t kernel_size &#x3D; 5;
+    constexpr int64_t ks2 &#x3D; kernel_size &#x2F; 2;
+    if (num_pts &lt; kernel_size) &#123;
+        return false;
+    &#125;
+
+    for (int64_t i &#x3D; ks2; i &lt; num_pts - ks2; i +&#x3D; 4) &#123;
+        __m256d k2 &#x3D; _mm256_set1_pd(kernel[ks2 - 2]);
+        __m256d k1 &#x3D; _mm256_set1_pd(kernel[ks2 - 1]);
+        __m256d k0 &#x3D; _mm256_set1_pd(kernel[ks2]);
+        __m256d kn1 &#x3D; _mm256_set1_pd(kernel[ks2 + 1]);
+        __m256d kn2 &#x3D; _mm256_set1_pd(kernel[ks2 + 2]);
+
+        __m256d x2 &#x3D; _mm256_loadu_pd(x + i + 2);
+        __m256d x1 &#x3D; _mm256_loadu_pd(x + i + 1);
+        __m256d x0 &#x3D; _mm256_loadu_pd(x + i);
+        __m256d xn1 &#x3D; _mm256_loadu_pd(x + i - 1);
+        __m256d xn2 &#x3D; _mm256_loadu_pd(x + i - 2);
+
+        __m256d result &#x3D; _mm256_setzero_pd();
+        result &#x3D; _mm256_fmadd_pd(k2, x2, result);
+        result &#x3D; _mm256_fmadd_pd(k1, x1, result);
+        result &#x3D; _mm256_fmadd_pd(k0, x0, result);
+        result &#x3D; _mm256_fmadd_pd(kn1, xn1, result);
+        result &#x3D; _mm256_fmadd_pd(kn2, xn2, result);
+
+        _mm256_storeu_pd(y + i, result);
+    &#125;
+
+    return true;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="运行时间对比"><a href="#运行时间对比" class="headerlink" title="运行时间对比"></a>运行时间对比</h3><table>
 <thead>
 <tr>
 <th align="center"></th>
-<th align="center">muladd,timing</th>
-<th align="center">sum</th>
-<th align="center">timing</th>
+<th align="center">原代码</th>
+<th align="center">AVX</th>
+<th align="center">AVX2</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">AoS</td>
-<td align="center">731870us</td>
-<td align="center">4582696570</td>
-<td align="center">59257us</td>
-</tr>
-<tr>
-<td align="center">SoA</td>
-<td align="center">261313us</td>
-<td align="center">4582696570</td>
-<td align="center">17589us</td>
-</tr>
-<tr>
-<td align="center">SoA_Align</td>
-<td align="center">307924us</td>
-<td align="center">4582696570</td>
-<td align="center">17527us</td>
-</tr>
-<tr>
-<td align="center">SoA_Unrolling</td>
-<td align="center">263744us</td>
-<td align="center">4582696570</td>
-<td align="center">17353us</td>
+<td align="center">timing</td>
+<td align="center">13241us</td>
+<td align="center">10648us</td>
+<td align="center">11179us</td>
 </tr>
 </tbody></table>
-<h2 id="提交内容三：分析各个版本的代码"><a href="#提交内容三：分析各个版本的代码" class="headerlink" title="提交内容三：分析各个版本的代码"></a>提交内容三：分析各个版本的代码</h2><ul>
-<li>在windows中，无法使用perf进行代码的性能分析，因此我采用very sleepy对各个版本的代码进行分析</li>
-<li>为了使效果更加明显，我将各个版本的代码以函数的形式写在同一个cpp文件中，具体运行效果如下</li>
-</ul>
-<p><img src="/2024/03/22/%E5%9B%BD%E7%A7%91%E5%A4%A7-%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B-%E4%BD%9C%E4%B8%9A%E4%BA%8C/image-20240322165956968.png"></p>
 <ul>
-<li><p>可以看到使用SoA分配方式以及在SoA的基础上再次进行内存对齐和循环展开优化后的代码在运行效率上高出源代码50%左右。这应该是由于SoA分配方式减少了大量的寻址工作所造成的。</p>
-</li>
-<li><p>但是在SoA的基础上再次进行内存对齐和循环展开优化后的代码相比于SoA并没有太大的效率提升。这应该是由以下两个原因组成：</p>
-<ul>
-<li><p>SoA分配方式所申请的内存是连续的内存块，已经保证了内存空间的连续分布</p>
-</li>
-<li><p>-O2编译时已经由编译器帮用户进行了适当的循环展开</p>
-</li>
+<li>在同样使用-O2优化级别的前提下，使用avx向量化内嵌指令修改后的代码运行时间提升了20%左右</li>
+<li>使用avx2中的fma特性融合加法和乘法后，运行时间反而略微上涨</li>
 </ul>
-</li>
-<li><p>使用-O0命令再次编译后测试结果如下</p>
-<p><img src="/2024/03/22/%E5%9B%BD%E7%A7%91%E5%A4%A7-%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B-%E4%BD%9C%E4%B8%9A%E4%BA%8C/image-20240322183905985.png"></p>
-</li>
-<li><p>可以看到SoA已经保证了内存空间的连续分布，再次手动对齐反而可能造成时间的浪费</p>
-</li>
-<li><p>如果不让编译器进行优化，而是手动对循环进行展开的话，是可以提升运行效率的。</p>
-</li>
-<li><p>本次实验中手动的循环展开只展开了四次，所以效果不是很明显，具体代码见附录</p>
-</li>
+<h2 id="提交内容二：编译运行代码"><a href="#提交内容二：编译运行代码" class="headerlink" title="提交内容二：编译运行代码"></a>提交内容二：编译运行代码</h2><ul>
+<li>gather.cpp</li>
+</ul>
+<p><img src="/2024/04/06/%E5%9B%BD%E7%A7%91%E5%A4%A7-%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B-%E4%BD%9C%E4%B8%9A%E4%B8%89/image-20240406193550575.png"></p>
+<ul>
+<li>permute.cpp</li>
+</ul>
+<p><img src="/2024/04/06/%E5%9B%BD%E7%A7%91%E5%A4%A7-%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B-%E4%BD%9C%E4%B8%9A%E4%B8%89/image-20240406193620545.png"></p>
+<h2 id="总结分析"><a href="#总结分析" class="headerlink" title="总结分析"></a>总结分析</h2><ul>
+<li>使用向量化内嵌指令可以大幅度提升代码的运行速度</li>
+<li>使用avx2中的fma融合加法和乘法操作不一定能提升代码运行速度，反而可能产生不好的影响。在本次作业的代码里，原来的各个乘法之间没有依赖关系，<code>__m256d y0</code>到<code>__m256d y4</code>这五个乘法运算可能并行地运行。但是如果使用fma将乘法操作和最后的加法操作进行融合，代码就需要进行一次乘法并累加到<code>result</code>后才能进行下一次乘法，这样反而浪费了时间</li>
 </ul>
 <h2 id="自评分及理由"><a href="#自评分及理由" class="headerlink" title="自评分及理由"></a>自评分及理由</h2><h3 id="自评分"><a href="#自评分" class="headerlink" title="自评分"></a>自评分</h3><ul>
-<li>10分（6+2+2）</li>
+<li>10分</li>
 </ul>
-<h3 id="理由"><a href="#理由" class="headerlink" title="理由"></a>理由</h3><ul>
-<li>提交作业要求的三个内容</li>
-<li>编写SoA及SoA基础上的内存对齐和循环展开代码，并收集这四种情况下的运行时间（6+2&#x3D;8分）</li>
-<li>由于windows无法使用perf，使用very sleepy分析各个版本的代码运行时间，以及分析了产生运行时间差异的原因（2分）</li>
+<h3 id="评分理由"><a href="#评分理由" class="headerlink" title="评分理由"></a>评分理由</h3><ul>
+<li>完成提交内容一：使用avx和avx2的fma特性对原代码进行优化、比较代码运行时间，并对产生的现象进行了分析(7分)</li>
+<li>完成提交内容二：编译运行<code>gather.cpp</code>和<code>permute.cpp</code>(3分)</li>
 </ul>
-<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">
-#include &lt;cstdio&gt;
-#include &lt;cstdlib&gt;
-#include &lt;sys&#x2F;time.h&gt;
-#include &lt;cstdint&gt;
-
-inline int64_t GetUsec()
-&#123;
-    struct timeval tv;
-    gettimeofday(&amp;tv, NULL);
-    return (tv.tv_sec * 1000000l) + tv.tv_usec;
-&#125;
-
-typedef struct
-&#123;
-    double x;
-    double y;
-    double z;
-&#125; XYZ;
-
-typedef struct
-&#123;
-    double mass;
-    XYZ acct;
-    XYZ noused; &#x2F;&#x2F; but here
-    XYZ Velocity;
-&#125; Element;
-
-const int ELEMENT_NUM &#x3D; (4096 * 4096);
-
-int homework2()
-&#123;
-
-    Element *elements &#x3D; new Element[ELEMENT_NUM];
-
-    srand(202403);
-
-    for (size_t ii &#x3D; 0; ii &lt; ELEMENT_NUM; ++ii)
-    &#123;
-        elements[ii].mass &#x3D; (double)(rand() % 10);
-
-        elements[ii].acct.x &#x3D; (double)(rand() % 10) - 5.0;
-        elements[ii].acct.y &#x3D; (double)(rand() % 10) - 5.0;
-        elements[ii].acct.z &#x3D; (double)(rand() % 10) - 5.0;
-
-        elements[ii].Velocity.x &#x3D; (double)(rand() % 10);
-        elements[ii].Velocity.y &#x3D; (double)(rand() % 10);
-        elements[ii].Velocity.z &#x3D; (double)(rand() % 10);
-    &#125;
-
-    size_t start &#x3D; GetUsec();
-    double dt &#x3D; 1.0;
-    for (size_t step &#x3D; 0; step &lt; 10; ++step)
-    &#123;
-        for (size_t ii &#x3D; 0; ii &lt; ELEMENT_NUM; ++ii)
-        &#123;
-            elements[ii].Velocity.x +&#x3D; dt * elements[ii].acct.x;
-            elements[ii].Velocity.y +&#x3D; dt * elements[ii].acct.y;
-            elements[ii].Velocity.z +&#x3D; dt * elements[ii].acct.z;
-        &#125;
-        dt &#x3D; dt * (((rand() % 10) &#x2F; 10.0) * 2.0);
-    &#125;
-
-    size_t finish &#x3D; GetUsec();
-    printf(&quot;muladd,timing&#x3D;%ldus\n&quot;, finish - start);
-
-    start &#x3D; GetUsec();
-
-    double sum &#x3D; 0.0;
-    for (size_t ii &#x3D; 0; ii &lt; ELEMENT_NUM; ++ii)
-    &#123;
-        sum +&#x3D; 0.5 * elements[ii].mass * (elements[ii].Velocity.x * elements[ii].Velocity.x + elements[ii].Velocity.y * elements[ii].Velocity.y + elements[ii].Velocity.z * elements[ii].Velocity.z);
-    &#125;
-    finish &#x3D; GetUsec();
-
-    printf(&quot;sum &#x3D; %.8e,timing&#x3D;%ldus\n&quot;, sum, finish - start);
-
-    delete[] elements;
-    return 0;
-&#125;
-
-typedef struct
-&#123;
-    double *x;
-    double *y;
-    double *z;
-&#125; XYZ_SoA;
-
-typedef struct
-&#123;
-    double *mass;
-    XYZ_SoA acct;
-    XYZ_SoA noused; &#x2F;&#x2F; but here
-    XYZ_SoA Velocity;
-&#125; Element_SoA;
-
-int homework2_SoA()
-&#123;
-
-    Element_SoA elements;
-    elements.mass &#x3D; new double[ELEMENT_NUM];
-    elements.acct.x &#x3D; new double[ELEMENT_NUM];
-    elements.acct.y &#x3D; new double[ELEMENT_NUM];
-    elements.acct.z &#x3D; new double[ELEMENT_NUM];
-
-    elements.noused.x &#x3D; new double[ELEMENT_NUM];
-    elements.noused.y &#x3D; new double[ELEMENT_NUM];
-    elements.noused.z &#x3D; new double[ELEMENT_NUM];
-
-    elements.Velocity.x &#x3D; new double[ELEMENT_NUM];
-    elements.Velocity.y &#x3D; new double[ELEMENT_NUM];
-    elements.Velocity.z &#x3D; new double[ELEMENT_NUM];
-
-    srand(202403);
-
-    for (size_t ii &#x3D; 0; ii &lt; ELEMENT_NUM; ++ii)
-    &#123;
-        elements.mass[ii] &#x3D; (double)(rand() % 10);
-
-        elements.acct.x[ii] &#x3D; (double)(rand() % 10) - 5.0;
-        elements.acct.y[ii] &#x3D; (double)(rand() % 10) - 5.0;
-        elements.acct.z[ii] &#x3D; (double)(rand() % 10) - 5.0;
-
-        elements.Velocity.x[ii] &#x3D; (double)(rand() % 10);
-        elements.Velocity.y[ii] &#x3D; (double)(rand() % 10);
-        elements.Velocity.z[ii] &#x3D; (double)(rand() % 10);
-    &#125;
-
-    size_t start &#x3D; GetUsec();
-    double dt &#x3D; 1.0;
-    for (size_t step &#x3D; 0; step &lt; 10; ++step)
-    &#123;
-        for (size_t ii &#x3D; 0; ii &lt; ELEMENT_NUM; ++ii)
-        &#123;
-            elements.Velocity.x[ii] +&#x3D; dt * elements.acct.x[ii];
-            elements.Velocity.y[ii] +&#x3D; dt * elements.acct.y[ii];
-            elements.Velocity.z[ii] +&#x3D; dt * elements.acct.z[ii];
-        &#125;
-        dt &#x3D; dt * (((rand() % 10) &#x2F; 10.0) * 2.0);
-        &#x2F;&#x2F; SoA code below is slow  on AMD EPYC 7713 64-Core Processor.
-        &#x2F;&#x2F; Splitting into three loops is better way.
-        &#x2F;*for(size_t ii &#x3D; 0; ii &lt; ELEMENT_NUM; ++ii)&#123;
-            ele_soa.vel_x[ii] +&#x3D; dt * ele_soa.acct_x[ii];
-            ele_soa.vel_y[ii] +&#x3D; dt * ele_soa.acct_y[ii];
-            ele_soa.vel_z[ii] +&#x3D; dt * ele_soa.acct_z[ii];
-          &#125;
-        *&#x2F;
-    &#125;
-
-    size_t finish &#x3D; GetUsec();
-    printf(&quot;muladd,timing&#x3D;%ldus\n&quot;, finish - start);
-
-    start &#x3D; GetUsec();
-
-    double sum &#x3D; 0.0;
-    for (size_t ii &#x3D; 0; ii &lt; ELEMENT_NUM; ++ii)
-    &#123;
-        sum +&#x3D; 0.5 * elements.mass[ii] * (elements.Velocity.x[ii] * elements.Velocity.x[ii] + elements.Velocity.y[ii] * elements.Velocity.y[ii] + elements.Velocity.z[ii] * elements.Velocity.z[ii]);
-    &#125;
-    finish &#x3D; GetUsec();
-
-    printf(&quot;sum &#x3D; %.8e,timing&#x3D;%ldus\n&quot;, sum, finish - start);
-    return 0;
-&#125;
-
-typedef struct
-&#123;
-    double *x;
-    double *y;
-    double *z;
-&#125; XYZ_SoA_Align;
-
-typedef struct
-&#123;
-    double *mass;
-    XYZ_SoA_Align acct;
-    XYZ_SoA_Align noused; &#x2F;&#x2F; but here
-    XYZ_SoA_Align Velocity;
-&#125; Element_SoA_Align;
-
-int homework2_SoA_Align()
-&#123;
-    size_t alignment &#x3D; 64;
-    Element_SoA_Align elements;
-
-    elements.mass &#x3D; (double*)_aligned_malloc(ELEMENT_NUM * sizeof(double), alignment);
-    elements.acct.x &#x3D; (double*)_aligned_malloc(ELEMENT_NUM * sizeof(double), alignment);
-    elements.acct.y &#x3D; (double*)_aligned_malloc(ELEMENT_NUM * sizeof(double), alignment);
-    elements.acct.z &#x3D; (double*)_aligned_malloc(ELEMENT_NUM * sizeof(double), alignment);
-
-    elements.noused.x &#x3D; (double*)_aligned_malloc(ELEMENT_NUM * sizeof(double), alignment);
-    elements.noused.y &#x3D; (double*)_aligned_malloc(ELEMENT_NUM * sizeof(double), alignment);
-    elements.noused.z &#x3D; (double*)_aligned_malloc(ELEMENT_NUM * sizeof(double), alignment);
-
-    elements.Velocity.x &#x3D; (double*)_aligned_malloc(ELEMENT_NUM * sizeof(double), alignment);
-    elements.Velocity.y &#x3D; (double*)_aligned_malloc(ELEMENT_NUM * sizeof(double), alignment);
-    elements.Velocity.z &#x3D; (double*)_aligned_malloc(ELEMENT_NUM * sizeof(double), alignment);
-
-
-    srand(202403);
-
-
-    for (size_t ii &#x3D; 0; ii &lt; ELEMENT_NUM; ++ii)
-    &#123;
-        elements.mass[ii] &#x3D; (double)(rand() % 10);
-
-        elements.acct.x[ii] &#x3D; (double)(rand() % 10) - 5.0;
-        elements.acct.y[ii] &#x3D; (double)(rand() % 10) - 5.0;
-        elements.acct.z[ii] &#x3D; (double)(rand() % 10) - 5.0;
-
-        elements.Velocity.x[ii] &#x3D; (double)(rand() % 10);
-        elements.Velocity.y[ii] &#x3D; (double)(rand() % 10);
-        elements.Velocity.z[ii] &#x3D; (double)(rand() % 10);
-    &#125;
-
-    size_t start &#x3D; GetUsec();
-    double dt &#x3D; 1.0;
-    for (size_t step &#x3D; 0; step &lt; 10; ++step)
-    &#123;
-        for (size_t ii &#x3D; 0; ii &lt; ELEMENT_NUM; ++ii)
-        &#123;
-            elements.Velocity.x[ii] +&#x3D; dt * elements.acct.x[ii];
-            elements.Velocity.y[ii] +&#x3D; dt * elements.acct.y[ii];
-            elements.Velocity.z[ii] +&#x3D; dt * elements.acct.z[ii];
-        &#125;
-        dt &#x3D; dt * (((rand() % 10) &#x2F; 10.0) * 2.0);
-    &#125;
-
-    size_t finish &#x3D; GetUsec();
-    printf(&quot;muladd,timing&#x3D;%ldus\n&quot;, finish - start);
-
-    start &#x3D; GetUsec();
-
-    double sum &#x3D; 0.0;
-    for (size_t ii &#x3D; 0; ii &lt; ELEMENT_NUM; ++ii)
-    &#123;
-        sum +&#x3D; 0.5 * elements.mass[ii] * (elements.Velocity.x[ii] * elements.Velocity.x[ii] + elements.Velocity.y[ii] * elements.Velocity.y[ii] + elements.Velocity.z[ii] * elements.Velocity.z[ii]);
-    &#125;
-    finish &#x3D; GetUsec();
-
-    printf(&quot;sum &#x3D; %.8e,timing&#x3D;%ldus\n&quot;, sum, finish - start);
-    _aligned_free(elements.mass);
-    _aligned_free(elements.acct.x);
-    _aligned_free(elements.acct.y);
-    _aligned_free(elements.acct.z);
-
-    _aligned_free(elements.noused.x);
-    _aligned_free(elements.noused.y);
-    _aligned_free(elements.noused.z);
-
-    _aligned_free(elements.Velocity.x);
-    _aligned_free(elements.Velocity.y);
-    _aligned_free(elements.Velocity.z);
-    return 0;
-&#125;
-
-typedef struct
-&#123;
-    double *x;
-    double *y;
-    double *z;
-&#125; XYZ_SoA_Unrolling;
-
-typedef struct
-&#123;
-    double *mass;
-    XYZ_SoA_Unrolling acct;
-    XYZ_SoA_Unrolling noused; &#x2F;&#x2F; but here
-    XYZ_SoA_Unrolling Velocity;
-&#125; Element_SoA_Unrolling;
-
-int homework2_SoA_Unrolling() &#123;
-
-    Element_SoA_Unrolling elements;
-    elements.mass &#x3D; new double[ELEMENT_NUM];
-    elements.acct.x &#x3D; new double[ELEMENT_NUM];
-    elements.acct.y &#x3D; new double[ELEMENT_NUM];
-    elements.acct.z &#x3D; new double[ELEMENT_NUM];
-
-    elements.noused.x &#x3D; new double[ELEMENT_NUM];
-    elements.noused.y &#x3D; new double[ELEMENT_NUM];
-    elements.noused.z &#x3D; new double[ELEMENT_NUM];
-
-    elements.Velocity.x &#x3D; new double[ELEMENT_NUM];
-    elements.Velocity.y &#x3D; new double[ELEMENT_NUM];
-    elements.Velocity.z &#x3D; new double[ELEMENT_NUM];
-
-    srand(202403);
-
-    for (size_t ii &#x3D; 0; ii &lt; ELEMENT_NUM; ++ii) &#123;
-        elements.mass[ii] &#x3D; (double) (rand() % 10);
-
-        elements.acct.x[ii] &#x3D; (double) (rand() % 10) - 5.0;
-        elements.acct.y[ii] &#x3D; (double) (rand() % 10) - 5.0;
-        elements.acct.z[ii] &#x3D; (double) (rand() % 10) - 5.0;
-
-        elements.Velocity.x[ii] &#x3D; (double) (rand() % 10);
-        elements.Velocity.y[ii] &#x3D; (double) (rand() % 10);
-        elements.Velocity.z[ii] &#x3D; (double) (rand() % 10);
-    &#125;
-
-    size_t start &#x3D; GetUsec();
-    double dt &#x3D; 1.0;
-    &#x2F;&#x2F; Loop unrolling example
-    for (size_t step &#x3D; 0; step &lt; 10; ++step) &#123;
-        for (size_t ii &#x3D; 0; ii &lt; ELEMENT_NUM; ii +&#x3D; 4) &#x2F;&#x2F; Increase by 4 due to unrolling
-        &#123;
-            elements.Velocity.x[ii] +&#x3D; dt * elements.acct.x[ii];
-            elements.Velocity.y[ii] +&#x3D; dt * elements.acct.y[ii];
-            elements.Velocity.z[ii] +&#x3D; dt * elements.acct.z[ii];
-
-            &#x2F;&#x2F; Unrolled operations
-            if (ii + 1 &lt; ELEMENT_NUM) &#123;
-                elements.Velocity.x[ii + 1] +&#x3D; dt * elements.acct.x[ii + 1];
-                elements.Velocity.y[ii + 1] +&#x3D; dt * elements.acct.y[ii + 1];
-                elements.Velocity.z[ii + 1] +&#x3D; dt * elements.acct.z[ii + 1];
-            &#125;
-            if (ii + 2 &lt; ELEMENT_NUM) &#123;
-                elements.Velocity.x[ii + 2] +&#x3D; dt * elements.acct.x[ii + 2];
-                elements.Velocity.y[ii + 2] +&#x3D; dt * elements.acct.y[ii + 2];
-                elements.Velocity.z[ii + 2] +&#x3D; dt * elements.acct.z[ii + 2];
-            &#125;
-            if (ii + 3 &lt; ELEMENT_NUM) &#123;
-                elements.Velocity.x[ii + 3] +&#x3D; dt * elements.acct.x[ii + 3];
-                elements.Velocity.y[ii + 3] +&#x3D; dt * elements.acct.y[ii + 3];
-                elements.Velocity.z[ii + 3] +&#x3D; dt * elements.acct.z[ii + 3];
-            &#125;
-        &#125;
-        dt &#x3D; dt * (((rand() % 10) &#x2F; 10.0) * 2.0);
-    &#125;
-
-    size_t finish &#x3D; GetUsec();
-    printf(&quot;muladd,timing&#x3D;%ldus\n&quot;, finish - start);
-
-    start &#x3D; GetUsec();
-
-    double sum &#x3D; 0.0;
-    for (size_t ii &#x3D; 0; ii &lt; ELEMENT_NUM; ii +&#x3D; 10) &#x2F;&#x2F; Loop unrolling for sum calculation
-    &#123;
-        sum +&#x3D; 0.5 * elements.mass[ii] * (elements.Velocity.x[ii] * elements.Velocity.x[ii]
-                                          + elements.Velocity.y[ii] * elements.Velocity.y[ii]
-                                          + elements.Velocity.z[ii] * elements.Velocity.z[ii]);
-        sum +&#x3D; 0.5 * elements.mass[ii + 1] * (elements.Velocity.x[ii + 1] * elements.Velocity.x[ii + 1]
-                                              + elements.Velocity.y[ii + 1] * elements.Velocity.y[ii + 1]
-                                              + elements.Velocity.z[ii + 1] * elements.Velocity.z[ii + 1]);
-        sum +&#x3D; 0.5 * elements.mass[ii + 2] * (elements.Velocity.x[ii + 2] * elements.Velocity.x[ii + 2]
-                                              + elements.Velocity.y[ii + 2] * elements.Velocity.y[ii + 2]
-                                              + elements.Velocity.z[ii + 2] * elements.Velocity.z[ii + 2]);
-        sum +&#x3D; 0.5 * elements.mass[ii + 3] * (elements.Velocity.x[ii + 3] * elements.Velocity.x[ii + 3]
-                                              + elements.Velocity.y[ii + 3] * elements.Velocity.y[ii + 3]
-                                              + elements.Velocity.z[ii + 3] * elements.Velocity.z[ii + 3]);
-    &#125;
-    finish &#x3D; GetUsec();
-    printf(&quot;sum &#x3D; %.8e,timing&#x3D;%ldus\n&quot;, sum, finish - start);
-    return 0;
-&#125;
-
-int main()&#123;
-    homework2();
-    homework2_SoA();
-    homework2_SoA_Align();
-    homework2_SoA_Unrolling();
-    return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 
                 
             </div>
@@ -963,7 +632,7 @@ int main()&#123;
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://yuichi.top/2024/03/22/%E5%9B%BD%E7%A7%91%E5%A4%A7-%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B-%E4%BD%9C%E4%B8%9A%E4%BA%8C/">https://yuichi.top/2024/03/22/%E5%9B%BD%E7%A7%91%E5%A4%A7-%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B-%E4%BD%9C%E4%B8%9A%E4%BA%8C/</a>
+                    <a href="https://yuichi.top/2024/04/06/%E5%9B%BD%E7%A7%91%E5%A4%A7-%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B-%E4%BD%9C%E4%B8%9A%E4%B8%89/">https://yuichi.top/2024/04/06/%E5%9B%BD%E7%A7%91%E5%A4%A7-%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B-%E4%BD%9C%E4%B8%9A%E4%B8%89/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1050,9 +719,64 @@ int main()&#123;
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2024/04/06/%E5%9B%BD%E7%A7%91%E5%A4%A7-%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B-%E4%BD%9C%E4%B8%9A%E4%B8%89/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="国科大-高性能计算编程-作业三">
+                        
+                        <span class="card-title">国科大-高性能计算编程-作业三</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-04-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/" class="post-category">
+                                    期末复习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97/">
+                        <span class="chip bg-color">高性能计算</span>
+                    </a>
+                    
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2024/04/01/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0Linux%E4%B8%8B%E7%9A%84C-%E8%BD%BB%E9%87%8F%E7%BA%A7webserver/">
                     <div class="card-image">
@@ -1070,9 +794,9 @@ int main()&#123;
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-04-01
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-04-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1080,59 +804,6 @@ int main()&#123;
                             
                         </span>
                     </div>
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2024/03/06/%E5%9B%BD%E7%A7%91%E5%A4%A7-%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B-%E4%BD%9C%E4%B8%9A%E4%B8%80/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="国科大-高性能计算编程-作业一">
-                        
-                        <span class="card-title">国科大-高性能计算编程-作业一</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-03-06
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/" class="post-category">
-                                    期末复习
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97/">
-                        <span class="chip bg-color">高性能计算</span>
-                    </a>
-                    
-                    <a href="/tags/C/">
-                        <span class="chip bg-color">C++</span>
-                    </a>
-                    
                 </div>
                 
             </div>
