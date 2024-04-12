@@ -1,0 +1,478 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>在FISCO BCOS区块链系统中使用Java SDK Demo进行压力测试 | Yuichi's Blog</title><meta name="author" content="Yuichi"><meta name="copyright" content="Yuichi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="FISCO BCOS的Java SDK Demo介绍 Java SDK Demo是FISCO BCOS团队基于Java SDK的基准测试集合，能够对FISCO BCOS节点进行压力测试。Java SDK Demo提供有合约编译功能，能够将Solidity合约文件转换成Java合约文件，此外还提供了针对转账合约、CRUD合约以及AMOP功能的压力测试示例程序  环境准备 Java SDK Demo中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在FISCO BCOS区块链系统中使用Java SDK Demo进行压力测试">
+<meta property="og:url" content="https://yuichi.top/posts/45190.html">
+<meta property="og:site_name" content="Yuichi&#39;s Blog">
+<meta property="og:description" content="FISCO BCOS的Java SDK Demo介绍 Java SDK Demo是FISCO BCOS团队基于Java SDK的基准测试集合，能够对FISCO BCOS节点进行压力测试。Java SDK Demo提供有合约编译功能，能够将Solidity合约文件转换成Java合约文件，此外还提供了针对转账合约、CRUD合约以及AMOP功能的压力测试示例程序  环境准备 Java SDK Demo中">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yuichi.top/img/cover/10.jpg">
+<meta property="article:published_time" content="2023-10-27T10:24:44.000Z">
+<meta property="article:modified_time" content="2024-04-12T02:12:57.992Z">
+<meta property="article:author" content="Yuichi">
+<meta property="article:tag" content="区块链">
+<meta property="article:tag" content="FISCO BCOS">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yuichi.top/img/cover/10.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://yuichi.top/posts/45190.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"prismjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '在FISCO BCOS区块链系统中使用Java SDK Demo进行压力测试',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-12 10:12:57'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/myStyle.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Yuichi's Blog"><span class="site-name">Yuichi's Blog</span></a></span><div id="menus"></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><center id="name-container"><a id="page-name" href="javascript:scrollToTop()">PAGE_NAME</a></center><div id="nav-right"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">在FISCO BCOS区块链系统中使用Java SDK Demo进行压力测试</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-10-27T10:24:44.000Z" title="发表于 2023-10-27 18:24:44">2023-10-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-12T02:12:57.992Z" title="更新于 2024-04-12 10:12:57">2024-04-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/">区块链学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="在FISCO BCOS区块链系统中使用Java SDK Demo进行压力测试"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="FISCO-BCOS的Java-SDK-Demo介绍"><a href="#FISCO-BCOS的Java-SDK-Demo介绍" class="headerlink" title="FISCO BCOS的Java SDK Demo介绍"></a>FISCO BCOS的Java SDK Demo介绍</h2><ul>
+<li>Java SDK Demo是FISCO BCOS团队基于Java SDK的基准测试集合，能够对FISCO BCOS节点进行压力测试。Java SDK Demo提供有合约编译功能，能够将Solidity合约文件转换成Java合约文件，此外还提供了针对转账合约、CRUD合约以及AMOP功能的压力测试示例程序</li>
+</ul>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><ul>
+<li>Java SDK Demo中的测试程序能够在部署有JDK 1.8 ~ JDK 14的环境中运行，执行测试程序前请先确保已安装所需版本的JDK。以在Ubuntu系统中安装OpenJDK 11为例：</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装open JDK 11</span>
+<span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> openjdk-11-jdk
+<span class="token comment"># 验证Java版本</span>
+<span class="token function">java</span> <span class="token parameter variable">--version</span>
+<span class="token comment"># 输出以下内容：</span>
+<span class="token comment"># openjdk 11.0.10 2021-01-19</span>
+<span class="token comment"># OpenJDK Runtime Environment (build 11.0.10+9-Ubuntu-0ubuntu1.20.04)</span>
+<span class="token comment"># OpenJDK 64-Bit Server VM (build 11.0.10+9-Ubuntu-0ubuntu1.20.04, mixed mode, sharing)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="编译源码"><a href="#编译源码" class="headerlink" title="编译源码"></a>编译源码</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 下载源码</span>
+<span class="token function">git</span> clone https://github.com/FISCO-BCOS/java-sdk-demo
+<span class="token builtin class-name">cd</span> java-sdk-demo
+<span class="token comment"># 切换到2.0版本</span>
+<span class="token function">git</span> checkout main-2.0
+<span class="token comment"># 编译源码</span>
+./gradlew build 
+<span class="token comment">#当网络无法访问GitHub时，请从https://gitee.com/FISCO-BCOS/java-sdk-demo处的main-2.0分支下载源码。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="配置Demo"><a href="#配置Demo" class="headerlink" title="配置Demo"></a>配置Demo</h2><ul>
+<li>使用Java SDK Demo之前，需要进行证书拷贝以及区块链节点端口的配置，我的区块链环境是按照FISCO BCOS开发文档配置的本地四节点联盟链，以下操作以此环境为基础</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> dist
+<span class="token comment"># 拷贝证书(假设SDK证书位于~/fisco/nodes/127.0.0.1/sdk目录，请根据实际情况更改路径)</span>
+<span class="token function">cp</span> <span class="token parameter variable">-r</span> ~/fisco/nodes/127.0.0.1/sdk/* conf
+
+<span class="token comment"># 拷贝配置文件</span>
+<span class="token comment"># 注:</span>
+<span class="token comment">#   默认搭建的FISCO BCOS区块链系统Channel端口是20200，若修改了该端口，请同步修改config.toml中的[network.peers]配置选项</span>
+<span class="token function">cp</span> conf/config-example.toml conf/config.toml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>由于我的区块链环境具有四个节点，所以应该修改java-sdk-demo/dist/conf/config.toml下的network.peers配置</li>
+</ul>
+<p><img src="/posts/45190.htm/1-1698402346492-1.png" alt></p>
+<h2 id="执行压力测试程序"><a href="#执行压力测试程序" class="headerlink" title="执行压力测试程序"></a>执行压力测试程序</h2><ul>
+<li>Java SDK Demo提供了一系列压测程序，包括串行转账合约压测、并行转账合约压测、AMOP压测等，具体使用方法如下：</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 进入dist目录</span>
+<span class="token builtin class-name">cd</span> dist
+
+<span class="token comment"># 将需要转换为java代码的sol文件拷贝到dist/contracts/solidity路径下</span>
+<span class="token comment"># 转换sol, 其中$&#123;packageName&#125;是生成的java代码包路径</span>
+<span class="token comment"># 生成的java代码位于 /dist/contracts/sdk/java目录下</span>
+<span class="token function">java</span> <span class="token parameter variable">-cp</span> <span class="token string">"apps/*:lib/*:conf/"</span> org.fisco.bcos.sdk.demo.codegen.DemoSolcToJava <span class="token variable">$&#123;packageName&#125;</span>
+
+<span class="token comment"># 压测串行转账合约:</span>
+<span class="token comment"># count: 压测的交易总量</span>
+<span class="token comment"># tps: 压测QPS</span>
+<span class="token comment"># groupId: 压测的群组ID</span>
+<span class="token function">java</span> <span class="token parameter variable">-cp</span> <span class="token string">'conf/:lib/*:apps/*'</span> org.fisco.bcos.sdk.demo.perf.PerformanceOk <span class="token punctuation">[</span>count<span class="token punctuation">]</span> <span class="token punctuation">[</span>tps<span class="token punctuation">]</span> <span class="token punctuation">[</span>groupId<span class="token punctuation">]</span>
+
+<span class="token comment"># 压测并行转账合约</span>
+<span class="token comment"># --------------------------</span>
+<span class="token comment"># 基于Solidity并行合约parallelok添加账户:</span>
+<span class="token comment"># groupID: 压测的群组ID</span>
+<span class="token comment"># count: 压测的交易总量</span>
+<span class="token comment"># tps: 压测QPS</span>
+<span class="token comment"># file: 保存生成账户的文件名</span>
+<span class="token function">java</span> <span class="token parameter variable">-cp</span> <span class="token string">'conf/:lib/*:apps/*'</span> org.fisco.bcos.sdk.demo.perf.ParallelOkPerf <span class="token punctuation">[</span>parallelok<span class="token punctuation">]</span> <span class="token punctuation">[</span>groupID<span class="token punctuation">]</span> <span class="token punctuation">[</span>add<span class="token punctuation">]</span> <span class="token punctuation">[</span>count<span class="token punctuation">]</span> <span class="token punctuation">[</span>tps<span class="token punctuation">]</span> <span class="token punctuation">[</span>file<span class="token punctuation">]</span>
+<span class="token comment"># 基于Precompiled并行合约precompiled添加账户</span>
+<span class="token comment"># (参数含义同上)</span>
+<span class="token function">java</span> <span class="token parameter variable">-cp</span> <span class="token string">'conf/:lib/*:apps/*'</span> org.fisco.bcos.sdk.demo.perf.ParallelOkPerf <span class="token punctuation">[</span>precompiled<span class="token punctuation">]</span> <span class="token punctuation">[</span>groupID<span class="token punctuation">]</span> <span class="token punctuation">[</span>add<span class="token punctuation">]</span> <span class="token punctuation">[</span>count<span class="token punctuation">]</span> <span class="token punctuation">[</span>tps<span class="token punctuation">]</span> <span class="token punctuation">[</span>file<span class="token punctuation">]</span>
+<span class="token comment"># --------------------------</span>
+<span class="token comment"># 基于Solidity并行合约parallelok发起转账交易压测</span>
+<span class="token comment"># groupID: 压测的群组ID</span>
+<span class="token comment"># count: 压测的交易总量</span>
+<span class="token comment"># tps: 压测的QPS</span>
+<span class="token comment"># file: 转账用户文件</span>
+<span class="token function">java</span> <span class="token parameter variable">-cp</span> <span class="token string">'conf/:lib/*:apps/*'</span> org.fisco.bcos.sdk.demo.perf.ParallelOkPerf <span class="token punctuation">[</span>parallelok<span class="token punctuation">]</span> <span class="token punctuation">[</span>groupID<span class="token punctuation">]</span> <span class="token punctuation">[</span>transfer<span class="token punctuation">]</span> <span class="token punctuation">[</span>count<span class="token punctuation">]</span> <span class="token punctuation">[</span>tps<span class="token punctuation">]</span> <span class="token punctuation">[</span>file<span class="token punctuation">]</span>
+<span class="token comment"># 基于Precompiled并行合约Precompiled发起转账压测</span>
+<span class="token function">java</span> <span class="token parameter variable">-cp</span> <span class="token string">'conf/:lib/*:apps/*'</span> org.fisco.bcos.sdk.demo.perf.ParallelOkPerf <span class="token punctuation">[</span>precompiled<span class="token punctuation">]</span> <span class="token punctuation">[</span>groupID<span class="token punctuation">]</span> <span class="token punctuation">[</span>transfer<span class="token punctuation">]</span> <span class="token punctuation">[</span>count<span class="token punctuation">]</span> <span class="token punctuation">[</span>tps<span class="token punctuation">]</span> <span class="token punctuation">[</span>file<span class="token punctuation">]</span>
+
+
+<span class="token comment"># CRUD合约压测</span>
+<span class="token comment"># 压测CRUD insert</span>
+<span class="token comment"># count: 压测的交易总量</span>
+<span class="token comment"># tps: 压测QPS</span>
+<span class="token comment"># groupId: 压测群组</span>
+<span class="token function">java</span> <span class="token parameter variable">-cp</span> <span class="token string">'conf/:lib/*:apps/*'</span> org.fisco.bcos.sdk.demo.perf.PerformanceTable <span class="token punctuation">[</span>insert<span class="token punctuation">]</span> <span class="token punctuation">[</span>count<span class="token punctuation">]</span> <span class="token punctuation">[</span>tps<span class="token punctuation">]</span> <span class="token punctuation">[</span>groupId<span class="token punctuation">]</span>
+<span class="token comment"># 压测CRUD update</span>
+<span class="token comment"># (参数解释同上)</span>
+<span class="token function">java</span> <span class="token parameter variable">-cp</span> <span class="token string">'conf/:lib/*:apps/*'</span> org.fisco.bcos.sdk.demo.perf.PerformanceTable <span class="token punctuation">[</span>update<span class="token punctuation">]</span> <span class="token punctuation">[</span>count<span class="token punctuation">]</span> <span class="token punctuation">[</span>tps<span class="token punctuation">]</span> <span class="token punctuation">[</span>groupId<span class="token punctuation">]</span>
+<span class="token comment"># 压测CRUD remove</span>
+<span class="token comment"># (参数解释同上)</span>
+<span class="token function">java</span> <span class="token parameter variable">-cp</span> <span class="token string">'conf/:lib/*:apps/*'</span> org.fisco.bcos.sdk.demo.perf.PerformanceTable <span class="token punctuation">[</span>remove<span class="token punctuation">]</span> <span class="token punctuation">[</span>count<span class="token punctuation">]</span> <span class="token punctuation">[</span>tps<span class="token punctuation">]</span> <span class="token punctuation">[</span>groupId<span class="token punctuation">]</span>
+<span class="token comment"># 压测CRUD query</span>
+<span class="token comment"># (参数解释同上)</span>
+<span class="token function">java</span> <span class="token parameter variable">-cp</span> <span class="token string">'conf/:lib/*:apps/*'</span> org.fisco.bcos.sdk.demo.perf.PerformanceTable <span class="token punctuation">[</span>query<span class="token punctuation">]</span> <span class="token punctuation">[</span>count<span class="token punctuation">]</span> <span class="token punctuation">[</span>tps<span class="token punctuation">]</span> <span class="token punctuation">[</span>groupId<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="压测自定义合约"><a href="#压测自定义合约" class="headerlink" title="压测自定义合约"></a>压测自定义合约</h2><ul>
+<li>在现实生产中，我们需要对自己定义的智能合约进行压力测试，因此需要将自己编写的智能合约加入Java SDK Demo中，同时还要编写相应的压力测试程序，来测试合约中指定的功能。</li>
+<li>压测自定义合约的开发均在Java SDK Demo中进行，我们需要开发三个文件，分别是：<ol>
+<li>待压测的智能合约：HelloWorld.sol</li>
+<li>带压测的智能合约所编译出的Java类：HelloWorld.java(可以使用FISCO BCOS控制台的脚本进行智能合约到Java代码的自动转换，具体操作方式见FISCO BCOS系统开发文档中Java SDK的引入)</li>
+<li>压力测试程序：PerformanceHelloWorld.java</li>
+</ol>
+</li>
+</ul>
+<h3 id="项目的存放路径"><a href="#项目的存放路径" class="headerlink" title="项目的存放路径"></a>项目的存放路径</h3><ul>
+<li><p>以上三个文件的存放路径如下</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">java-sdk-demo/src/main/java/org/fisco/bcos/sdk/demo
+                                              ├── contract
+                                              │   ├── HelloWorld.java
+                                              │   └── sol
+                                              │       └── HelloWorld.sol
+                                              └── perf
+                                                  └── PerformanceHelloWorld.java<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h3 id="以HelloWorld合约为例，开发压测程序"><a href="#以HelloWorld合约为例，开发压测程序" class="headerlink" title="以HelloWorld合约为例，开发压测程序"></a>以HelloWorld合约为例，开发压测程序</h3><ul>
+<li><p>压力测试程序的写法可以根据Java SDK Demo中提供的示例程序进行修改，这里展示基于HelloWorld合约写出的压力测试程序，测试的是HelloWorld合约中的set方法</p>
+<ol>
+<li><p>HelloWorld.sol</p>
+<pre class="line-numbers language-solidity" data-language="solidity"><code class="language-solidity"><span class="token keyword">pragma</span> <span class="token keyword">solidity</span><span class="token operator">>=</span><span class="token version number">0.4.24</span> <span class="token operator">&lt;</span><span class="token version number">0.6.11</span><span class="token punctuation">;</span>
+
+<span class="token keyword">contract</span> <span class="token class-name">HelloWorld</span> <span class="token punctuation">&#123;</span>
+    <span class="token builtin">string</span> name<span class="token punctuation">;</span>
+
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">public</span> <span class="token punctuation">&#123;</span>
+        name <span class="token operator">=</span> <span class="token string">"Hello, World!"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">function</span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">public</span> <span class="token keyword">view</span> <span class="token keyword">returns</span> <span class="token punctuation">(</span><span class="token builtin">string</span> <span class="token keyword">memory</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">function</span> <span class="token function">set</span><span class="token punctuation">(</span><span class="token builtin">string</span> <span class="token keyword">memory</span> n<span class="token punctuation">)</span> <span class="token keyword">public</span> <span class="token punctuation">&#123;</span>
+        name <span class="token operator">=</span> n<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>HelloWorld.java(使用脚本根据HelloWorld.sol自动生成，这里不做展示)</p>
+</li>
+<li><p>PerformanceHelloWorld.java</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * Copyright 2014-2020 [fisco-dev]
+ *
+ * &lt;p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
+ *
+ * &lt;p>http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * &lt;p>Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing permissions and
+ * limitations under the License.
+ */</span>
+<span class="token keyword">package</span> <span class="token namespace">org<span class="token punctuation">.</span>fisco<span class="token punctuation">.</span>bcos<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>demo<span class="token punctuation">.</span>perf</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">com<span class="token punctuation">.</span>google<span class="token punctuation">.</span>common<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span></span><span class="token class-name">RateLimiter</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>math<span class="token punctuation">.</span></span><span class="token class-name">BigInteger</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>net<span class="token punctuation">.</span></span><span class="token class-name">URL</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>atomic<span class="token punctuation">.</span></span><span class="token class-name">AtomicInteger</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>fisco<span class="token punctuation">.</span>bcos<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span></span><span class="token class-name">BcosSDK</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>fisco<span class="token punctuation">.</span>bcos<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span></span><span class="token class-name">BcosSDKException</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>fisco<span class="token punctuation">.</span>bcos<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>client<span class="token punctuation">.</span></span><span class="token class-name">Client</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>fisco<span class="token punctuation">.</span>bcos<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>demo<span class="token punctuation">.</span>contract<span class="token punctuation">.</span></span><span class="token class-name">HelloWorld</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>fisco<span class="token punctuation">.</span>bcos<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>demo<span class="token punctuation">.</span>perf<span class="token punctuation">.</span>callback<span class="token punctuation">.</span></span><span class="token class-name">PerformanceCallback</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>fisco<span class="token punctuation">.</span>bcos<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>demo<span class="token punctuation">.</span>perf<span class="token punctuation">.</span>collector<span class="token punctuation">.</span></span><span class="token class-name">PerformanceCollector</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>fisco<span class="token punctuation">.</span>bcos<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>model<span class="token punctuation">.</span></span><span class="token class-name">ConstantConfig</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>fisco<span class="token punctuation">.</span>bcos<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>model<span class="token punctuation">.</span></span><span class="token class-name">TransactionReceipt</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>fisco<span class="token punctuation">.</span>bcos<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>transaction<span class="token punctuation">.</span>model<span class="token punctuation">.</span>exception<span class="token punctuation">.</span></span><span class="token class-name">ContractException</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>fisco<span class="token punctuation">.</span>bcos<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>utils<span class="token punctuation">.</span></span><span class="token class-name">ThreadPoolService</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>slf4j<span class="token punctuation">.</span></span><span class="token class-name">Logger</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>slf4j<span class="token punctuation">.</span></span><span class="token class-name">LoggerFactory</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PerformanceHelloWorld</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">Logger</span> logger <span class="token operator">=</span> <span class="token class-name">LoggerFactory</span><span class="token punctuation">.</span><span class="token function">getLogger</span><span class="token punctuation">(</span><span class="token class-name">PerformanceHelloWorld</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">AtomicInteger</span> sendedTransactions <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AtomicInteger</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token class-name">Usage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">" Usage:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>
+                <span class="token string">" \t java -cp 'conf/:lib/*:apps/*' org.fisco.bcos.sdk.demo.perf.PerformanceHelloWorld [count] [tps] [groupId]."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">String</span> configFileName <span class="token operator">=</span> <span class="token class-name">ConstantConfig</span><span class="token punctuation">.</span><span class="token constant">CONFIG_FILE_NAME</span><span class="token punctuation">;</span>
+            <span class="token class-name">URL</span> configUrl <span class="token operator">=</span> <span class="token class-name">PerformanceOk</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getResource</span><span class="token punctuation">(</span>configFileName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>configUrl <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"The configFile "</span> <span class="token operator">+</span> configFileName <span class="token operator">+</span> <span class="token string">" doesn't exist!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">return</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>args<span class="token punctuation">.</span>length <span class="token operator">&lt;</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token class-name">Usage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">return</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token class-name">Integer</span> count <span class="token operator">=</span> <span class="token class-name">Integer</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">Integer</span> qps <span class="token operator">=</span> <span class="token class-name">Integer</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>args<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">Integer</span> groupId <span class="token operator">=</span> <span class="token class-name">Integer</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>args<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>
+                    <span class="token string">"====== PerformanceOk trans, count: "</span>
+                            <span class="token operator">+</span> count
+                            <span class="token operator">+</span> <span class="token string">", qps:"</span>
+                            <span class="token operator">+</span> qps
+                            <span class="token operator">+</span> <span class="token string">", groupId: "</span>
+                            <span class="token operator">+</span> groupId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token class-name">String</span> configFile <span class="token operator">=</span> configUrl<span class="token punctuation">.</span><span class="token function">getPath</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">BcosSDK</span> sdk <span class="token operator">=</span> <span class="token class-name">BcosSDK</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span>configFile<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token comment">// build the client</span>
+            <span class="token class-name">Client</span> client <span class="token operator">=</span> sdk<span class="token punctuation">.</span><span class="token function">getClient</span><span class="token punctuation">(</span>groupId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token comment">// deploy the HelloWorld</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"====== Deploy Ok ====== "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">HelloWorld</span> helloWorld <span class="token operator">=</span> <span class="token class-name">HelloWorld</span><span class="token punctuation">.</span><span class="token function">deploy</span><span class="token punctuation">(</span>client<span class="token punctuation">,</span> client<span class="token punctuation">.</span><span class="token function">getCryptoSuite</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getCryptoKeyPair</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>
+                    <span class="token string">"====== Deploy HelloWorld succ, address: "</span> <span class="token operator">+</span> helloWorld<span class="token punctuation">.</span><span class="token function">getContractAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" ====== "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token class-name">PerformanceCollector</span> collector <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PerformanceCollector</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            collector<span class="token punctuation">.</span><span class="token function">setTotal</span><span class="token punctuation">(</span>count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">RateLimiter</span> limiter <span class="token operator">=</span> <span class="token class-name">RateLimiter</span><span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>qps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">Integer</span> area <span class="token operator">=</span> count <span class="token operator">/</span> <span class="token number">10</span><span class="token punctuation">;</span>
+            <span class="token keyword">final</span> <span class="token class-name">Integer</span> total <span class="token operator">=</span> count<span class="token punctuation">;</span>
+
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"====== PerformanceOk trans start ======"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token class-name">ThreadPoolService</span> threadPoolService <span class="token operator">=</span>
+                    <span class="token keyword">new</span> <span class="token class-name">ThreadPoolService</span><span class="token punctuation">(</span>
+                            <span class="token string">"PerformanceHelloWorld"</span><span class="token punctuation">,</span>
+                            sdk<span class="token punctuation">.</span><span class="token function">getConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getThreadPoolConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getMaxBlockingQueueSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Integer</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> count<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                limiter<span class="token punctuation">.</span><span class="token function">acquire</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                threadPoolService
+                        <span class="token punctuation">.</span><span class="token function">getThreadPool</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                        <span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span>
+                                <span class="token keyword">new</span> <span class="token class-name">Runnable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                                    <span class="token annotation punctuation">@Override</span>
+                                    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                                        <span class="token class-name">PerformanceCallback</span> callback <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PerformanceCallback</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                                        callback<span class="token punctuation">.</span><span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                                        callback<span class="token punctuation">.</span><span class="token function">setCollector</span><span class="token punctuation">(</span>collector<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                                        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+                                            helloWorld<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"Hello, fisco"</span><span class="token punctuation">,</span> callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                                        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                                            <span class="token class-name">TransactionReceipt</span> receipt <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TransactionReceipt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                                            receipt<span class="token punctuation">.</span><span class="token function">setStatus</span><span class="token punctuation">(</span><span class="token string">"-1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                                            callback<span class="token punctuation">.</span><span class="token function">onResponse</span><span class="token punctuation">(</span>receipt<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                                            logger<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                                        <span class="token punctuation">&#125;</span>
+                                        <span class="token keyword">int</span> current <span class="token operator">=</span> sendedTransactions<span class="token punctuation">.</span><span class="token function">incrementAndGet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                                        <span class="token keyword">if</span> <span class="token punctuation">(</span>current <span class="token operator">>=</span> area <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>current <span class="token operator">%</span> area<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                                            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>
+                                                    <span class="token string">"Already sended: "</span>
+                                                            <span class="token operator">+</span> current
+                                                            <span class="token operator">+</span> <span class="token string">"/"</span>
+                                                            <span class="token operator">+</span> total
+                                                            <span class="token operator">+</span> <span class="token string">" transactions"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                                        <span class="token punctuation">&#125;</span>
+                                    <span class="token punctuation">&#125;</span>
+                                <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token comment">// wait to collect all the receipts</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>collector<span class="token punctuation">.</span><span class="token function">getReceived</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>count<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            threadPoolService<span class="token punctuation">.</span><span class="token function">stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">BcosSDKException</span> <span class="token operator">|</span> <span class="token class-name">ContractException</span> <span class="token operator">|</span> <span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>
+                    <span class="token string">"====== PerformanceOk test failed, error message: "</span> <span class="token operator">+</span> e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="HelloWorld合约的压力测试"><a href="#HelloWorld合约的压力测试" class="headerlink" title="HelloWorld合约的压力测试"></a>HelloWorld合约的压力测试</h3><ul>
+<li><p>将上述三个文件放入对应的目录后，执行以下操作对HelloWorld合约进行压力测试</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /java-sdk-demo/dist
+<span class="token comment">#200000代表总测试量为200000   10000代表每秒向区块链系统发送10000次请求   1代表区块链系统的groupId</span>
+<span class="token function">java</span> <span class="token parameter variable">-cp</span> <span class="token string">'conf/:lib/*:apps/*'</span> org.fisco.bcos.sdk.demo.perf.PerformanceHelloWorld <span class="token number">200000</span> <span class="token number">10000</span> <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>压力测试结果如下，可以看到本机的四节点区块链系统对HelloWorld合约里set方法的TPS为1797.67</p>
+</li>
+</ul>
+<p><img src="/posts/45190.htm/2-1698402357631-3.png" alt></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://yuichi.top">Yuichi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://yuichi.top/posts/45190.html">https://yuichi.top/posts/45190.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://yuichi.top" target="_blank">Yuichi's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><a class="post-meta__tags" href="/tags/FISCO-BCOS/">FISCO BCOS</a><a class="post-meta__tags" href="/tags/Java/">Java</a></div><div class="post_share"><div class="social-share" data-image="/img/cover/10.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/11725.html" title="使用Docker容器化部署FISCO BCOS区块链系统"><img class="cover" src="/img/cover/5.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">使用Docker容器化部署FISCO BCOS区块链系统</div></div></a></div><div class="next-post pull-right"><a href="/posts/39296.html" title="FISCO BCOS区块链系统中Java SDK的调用"><img class="cover" src="/img/cover/2.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">FISCO BCOS区块链系统中Java SDK的调用</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/39296.html" title="FISCO BCOS区块链系统中Java SDK的调用"><img class="cover" src="/img/cover/2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-23</div><div class="title">FISCO BCOS区块链系统中Java SDK的调用</div></div></a></div><div><a href="/posts/46552.html" title="FISCO BCOS区块链系统新增节点时无法同步数据的原因及解决方法"><img class="cover" src="/img/cover/12.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-13</div><div class="title">FISCO BCOS区块链系统新增节点时无法同步数据的原因及解决方法</div></div></a></div><div><a href="/posts/11725.html" title="使用Docker容器化部署FISCO BCOS区块链系统"><img class="cover" src="/img/cover/5.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-22</div><div class="title">使用Docker容器化部署FISCO BCOS区块链系统</div></div></a></div><div><a href="/posts/17797.html" title="在kubernetes(k8s)集群上部署FISCO BCOS区块链系统"><img class="cover" src="/img/cover/13.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-29</div><div class="title">在kubernetes(k8s)集群上部署FISCO BCOS区块链系统</div></div></a></div><div><a href="/posts/55701.html" title="SpringBoot+Vue学习（三）"><img class="cover" src="/img/cover/22.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-20</div><div class="title">SpringBoot+Vue学习（三）</div></div></a></div><div><a href="/posts/17814.html" title="SpringBoot+Vue学习（一）"><img class="cover" src="/img/cover/20.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-20</div><div class="title">SpringBoot+Vue学习（一）</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Yuichi</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Qudoudou-1001"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://blog.csdn.net/Qudoudou2020" target="_blank" title="CSDN"><i class="fas fa-solid fa-c" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:913637919@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">把主题更换成butterly啦！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#FISCO-BCOS%E7%9A%84Java-SDK-Demo%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">FISCO BCOS的Java SDK Demo介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-number">2.</span> <span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E6%BA%90%E7%A0%81"><span class="toc-number">3.</span> <span class="toc-text">编译源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEDemo"><span class="toc-number">4.</span> <span class="toc-text">配置Demo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E7%A8%8B%E5%BA%8F"><span class="toc-number">5.</span> <span class="toc-text">执行压力测试程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%8B%E6%B5%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E5%90%88%E7%BA%A6"><span class="toc-number">6.</span> <span class="toc-text">压测自定义合约</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%AD%98%E6%94%BE%E8%B7%AF%E5%BE%84"><span class="toc-number">6.1.</span> <span class="toc-text">项目的存放路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A5HelloWorld%E5%90%88%E7%BA%A6%E4%B8%BA%E4%BE%8B%EF%BC%8C%E5%BC%80%E5%8F%91%E5%8E%8B%E6%B5%8B%E7%A8%8B%E5%BA%8F"><span class="toc-number">6.2.</span> <span class="toc-text">以HelloWorld合约为例，开发压测程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HelloWorld%E5%90%88%E7%BA%A6%E7%9A%84%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95"><span class="toc-number">6.3.</span> <span class="toc-text">HelloWorld合约的压力测试</span></a></li></ol></li></ol></div></div><div class="card-widget card-calendar"><div class="card-content"><div class="item-headline"><i class="fas fa-calendar"></i><span>文章日历</span></div><div class="widget" id="calendar"></div></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/5167.html" title="国科大-高性能计算编程-作业三"><img src="/img/cover/1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="国科大-高性能计算编程-作业三"/></a><div class="content"><a class="title" href="/posts/5167.html" title="国科大-高性能计算编程-作业三">国科大-高性能计算编程-作业三</a><time datetime="2024-04-06T11:28:31.000Z" title="发表于 2024-04-06 19:28:31">2024-04-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/30702.html" title="国科大-高性能计算编程-作业二"><img src="/img/cover/6.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="国科大-高性能计算编程-作业二"/></a><div class="content"><a class="title" href="/posts/30702.html" title="国科大-高性能计算编程-作业二">国科大-高性能计算编程-作业二</a><time datetime="2024-03-22T04:53:48.000Z" title="发表于 2024-03-22 12:53:48">2024-03-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4847.html" title="国科大-高性能计算编程-作业一"><img src="/img/cover/21.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="国科大-高性能计算编程-作业一"/></a><div class="content"><a class="title" href="/posts/4847.html" title="国科大-高性能计算编程-作业一">国科大-高性能计算编程-作业一</a><time datetime="2024-03-06T15:37:46.000Z" title="发表于 2024-03-06 23:37:46">2024-03-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22763.html" title="2023年国科大杨力祥《高级操作系统》期末思考题汇总"><img src="/img/cover/23.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2023年国科大杨力祥《高级操作系统》期末思考题汇总"/></a><div class="content"><a class="title" href="/posts/22763.html" title="2023年国科大杨力祥《高级操作系统》期末思考题汇总">2023年国科大杨力祥《高级操作系统》期末思考题汇总</a><time datetime="2023-12-21T08:32:27.000Z" title="发表于 2023-12-21 16:32:27">2023-12-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/46552.html" title="FISCO BCOS区块链系统新增节点时无法同步数据的原因及解决方法"><img src="/img/cover/12.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="FISCO BCOS区块链系统新增节点时无法同步数据的原因及解决方法"/></a><div class="content"><a class="title" href="/posts/46552.html" title="FISCO BCOS区块链系统新增节点时无法同步数据的原因及解决方法">FISCO BCOS区块链系统新增节点时无法同步数据的原因及解决方法</a><time datetime="2023-12-13T10:18:31.000Z" title="发表于 2023-12-13 18:18:31">2023-12-13</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Yuichi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script src="/js/jquery.js"></script><script src="/js/foot.js"></script><script src="/js/nav.js"></script><script src="http://cdn.bootcss.com/pace/1.0.2/pace.min.js" async></script><script data-pjax type="text/javascript" src="/js/languages.js"></script><script data-pjax type="text/javascript" src="/js/calendar.js" ></script><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script src="/js/sun_moon.js" async></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
