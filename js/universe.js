@@ -9,7 +9,7 @@ function dark() {
         c = [];
 
     function f() {
-        n = window.innerWidth, e = window.innerHeight, i = .216 * n, s.setAttribute("width", n), s.setAttribute("height", e)
+        n = window.innerWidth, e = window.innerHeight, i = .888 * n, s.setAttribute("width", n), s.setAttribute("height", e)
     }
 
     function u() {
