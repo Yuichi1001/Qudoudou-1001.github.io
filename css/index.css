@@ -3365,14 +3365,14 @@ h1.page-title + .tag-cloud-list {
 #calendar a {
   text-decoration: none;
 }
-.cal-head {
+#calendar .cal-head {
   position: relative;
   height: 20px;
   padding: 8px 6px 2px 6px;
   margin-bottom: 15px;
 }
-.cal-prev,
-.cal-next {
+#calendar .cal-prev,
+#calendar .cal-next {
   position: absolute;
   top: 9px;
   width: 9px;
@@ -3382,20 +3382,20 @@ h1.page-title + .tag-cloud-list {
   color: #333;
   outline: 0;
 }
-.cal-prev {
+#calendar .cal-prev {
   left: 8px;
 }
-.cal-prev:before {
+#calendar .cal-prev:before {
   border-right: 9px solid #333;
 }
-.cal-next {
+#calendar .cal-next {
   right: 8px;
 }
-.cal-next:before {
+#calendar .cal-next:before {
   border-left: 9px solid #333;
 }
-.cal-prev:before,
-.cal-next:before {
+#calendar .cal-prev:before,
+#calendar .cal-next:before {
   content: '';
   display: block;
   width: 0;
@@ -3403,66 +3403,66 @@ h1.page-title + .tag-cloud-list {
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
 }
-.cal-title {
+#calendar .cal-title {
   width: 120px;
   margin: 0 auto;
   color: #333;
   font: bold 14px/18px Arial;
   text-align: center;
 }
-.cal-title a {
+#calendar .cal-title a {
   border: 1px solid transparent;
   color: #808080;
 }
-.cal,
-.cal th,
-.cal td {
+#calendar .cal,
+#calendar .cal th,
+#calendar .cal td {
   border: none;
 }
-.cal {
+#calendar .cal {
   border-collapse: collapse;
   border-spacing: 0;
   table-layout: fixed;
   width: 100%;
   margin: 0;
 }
-.cal th {
+#calendar .cal th {
   background: rgba(0,0,0,0);
   color: #000;
   font-weight: 900 !important;
 }
-.cal tbody a {
+#calendar .cal tbody a {
   background-color: #c2ccd0;
   color: #fff;
   display: block;
   font-weight: 700;
   border: 1px solid #fff;
 }
-.cal tbody .cal-today {
+#calendar .cal tbody .cal-today {
   color: #f76b61;
 }
-.cal .cal-gray {
+#calendar .cal .cal-gray {
   color: #ddd;
 }
-.cal th,
-.cal td {
+#calendar .cal th,
+#calendar .cal td {
   font-weight: normal;
   line-height: 2.5625;
   padding: 0;
   text-align: center;
 }
-.cal-title a:hover,
-.cal-prev:hover,
-.cal-next:hover,
-.cal .cal-foot:hover,
-.cal .cal-foot:focus {
+#calendar .cal-title a:hover,
+#calendar .cal-prev:hover,
+#calendar .cal-next:hover,
+#calendar .cal .cal-foot:hover,
+#calendar .cal .cal-foot:focus {
   cursor: pointer;
   background-color: transparent;
   cursor: pointer;
   color: #42d3d8;
 }
-.cal tbody a:hover,
-.cal tbody a:focus {
+#calendar .cal tbody a:hover,
+#calendar .cal tbody a:focus {
   background-color: #42d3d8;
   color: #fff;
   cursor: pointer;
