@@ -240,11 +240,11 @@
       
         <tags>
             
-            <tag> Java </tag>
-            
             <tag> 区块链 </tag>
             
             <tag> FISCO BCOS </tag>
+            
+            <tag> Java </tag>
             
         </tags>
       
@@ -269,13 +269,13 @@
       
         <tags>
             
-            <tag> SpringBoot </tag>
-            
-            <tag> Java </tag>
-            
             <tag> 区块链 </tag>
             
             <tag> FISCO BCOS </tag>
+            
+            <tag> SpringBoot </tag>
+            
+            <tag> Java </tag>
             
         </tags>
       
@@ -495,6 +495,17 @@
     
     
     <entry>
+      <title>about</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>categories</title>
       <link href="/categories/index.html"/>
       <url>/categories/index.html</url>
@@ -506,9 +517,9 @@
     
     
     <entry>
-      <title>about</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
+      <title>friends</title>
+      <link href="/friends/index.html"/>
+      <url>/friends/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -531,17 +542,6 @@
       <title>tags</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>friends</title>
-      <link href="/friends/index.html"/>
-      <url>/friends/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
