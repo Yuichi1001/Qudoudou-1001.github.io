@@ -8,7 +8,7 @@
       <link href="/posts/32238.html"/>
       <url>/posts/32238.html</url>
       
-        <content type="html"><![CDATA[<h2 id="作业题目"><a href="#作业题目" class="headerlink" title="作业题目"></a>作业题目</h2><p><img src="/posts/32238.htm/image-20240509210549439.png" alt></p><h2 id="提交内容一：CUDA线程布局和内存层次"><a href="#提交内容一：CUDA线程布局和内存层次" class="headerlink" title="提交内容一：CUDA线程布局和内存层次"></a>提交内容一：CUDA线程布局和内存层次</h2><h3 id="线程布局"><a href="#线程布局" class="headerlink" title="线程布局"></a>线程布局</h3><p>在CUDA中，线程的布局从小到大总共有三个层次，分别为线程、线程块、网格</p><ul><li><strong>线程（Thread）：</strong><ul><li>线程是CUDA程序的最小执行单元</li><li>每个线程可以独立执行代码，并拥有自己的寄存器（局部内存）</li></ul></li><li><strong>线程块（Block）：</strong><ul><li>线程块是一定数量的线程的集合，它们可以共享一块共享内存</li><li>每个线程块内的线程可以通过同步原语进行协调</li></ul></li><li><strong>网格（Grid）：</strong><ul><li>网格是线程块的集合</li><li>一个CUDA内核可以启动多个线程块，所有这些块构成一个网格</li><li>网格可以是一维、二维或三维的结构</li></ul></li></ul><h3 id="内存层次"><a href="#内存层次" class="headerlink" title="内存层次"></a>内存层次</h3><p>CUDA在内存管理方面也存在很多个层次</p><ul><li><p><strong>寄存器（Registers）</strong>：</p><ul><li>每个线程拥有自己的寄存器，这是最快的存储形式</li><li>用于存储局部变量和临时计算结果</li></ul></li><li><p><strong>共享内存（Shared Memory）</strong>：</p><ul><li>由同一线程块内的所有线程共享</li><li>访问速度比全局内存快很多，但容量有限</li><li>适用于频繁访问的数据，可以显著提高性能</li></ul></li><li><p><strong>全局内存（Global Memory）</strong>：</p><ul><li>所有线程都可以访问的内存区域</li><li>访问速度较慢，但容量较大</li><li>通常用于存储从CPU传输的数据或大规模数据集</li></ul></li><li><p><strong>常量内存和纹理内存（Constant and Texture Memory）</strong>：</p><ul><li>常量内存用于存储不会改变的数据，对所有线程可见</li><li>纹理内存专用于图像处理，可以利用硬件优化的读取策略</li></ul></li></ul><h2 id="提交内容二：使用shared-memory优化代码"><a href="#提交内容二：使用shared-memory优化代码" class="headerlink" title="提交内容二：使用shared memory优化代码"></a>提交内容二：使用shared memory优化代码</h2><h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h3><ul><li><p>原代码运行结果</p><p><img src="/posts/32238.htm/8585823697d53c245bbd7e61f2499e73.png" alt></p></li><li><p>引入shared memory后的运行结果</p><p><img src="/posts/32238.htm/b810ab43a4611143d125224b90426660.png" alt></p></li></ul><h3 id="数据分析"><a href="#数据分析" class="headerlink" title="数据分析"></a>数据分析</h3><ul><li>优化后的代运行时间仅为原代码的50%</li></ul><h3 id="代码对比"><a href="#代码对比" class="headerlink" title="代码对比"></a>代码对比</h3><ul><li><p><strong>使用 Shared Memory</strong>:</p><ul><li>原代码直接从全局内存中读取数据进行计算，每次访问都需要较长的延迟</li><li>优化后的代码通过使用 shared memory，每个 block 中的 threads 首先将所需的数据加载到 shared memory 中。减少了对全局内存的访问次数</li></ul></li><li><p><strong>数据访问的合并</strong>:</p><ul><li>在原代码中，每个 thread 访问全局内存的模式不利于访存合并，特别是在处理边界条件时</li><li>优化后的代码由于整个 block 的数据首先被加载到 shared memory，然后再进行计算，所以对全局内存的访问被合并为一次加载，大大提升运行效率</li></ul></li><li><p><strong>减少边界检查的影响</strong>:</p><ul><li>原代码中，每个 thread 都要检查其位置是否在边界内，这增加了条件分支，加大了运行时长</li><li>优化后的代码减少了执行条件分支的线程数，从而提高了效率</li></ul></li><li><p><strong>使用二维 Block 结构</strong>:</p><ul><li>原代码中使用的是一维的 grid 和 block 结构</li><li>优化后的代码采用了二维的 grid 和 block 结构，更自然地映射了问题的二维性质</li></ul></li></ul><h3 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h3><ul><li><p>代码</p><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;#include &lt;sys&#x2F;time.h&gt;#include &lt;cuda.h&gt;#include &lt;cuda_runtime.h&gt;const int Nx &#x3D; 1024 * 2;const int Ny &#x3D; 1024 * 2;const int blockSizeX &#x3D; 16; &#x2F;&#x2F; Block width in X directionconst int blockSizeY &#x3D; 16; &#x2F;&#x2F; Block height in Y directionconst int TIMES &#x3D; 10;__global__ void two_stencil_shared(const int nx, const int ny, const double * __restrict__ in_xy, double * __restrict__ out_xy) &#123;    extern __shared__ double tile[];    int blockX &#x3D; blockIdx.x * blockDim.x;    int blockY &#x3D; blockIdx.y * blockDim.y;    int x &#x3D; blockX + threadIdx.x;    int y &#x3D; blockY + threadIdx.y;    int index &#x3D; y * nx + x; &#x2F;&#x2F; Global index    &#x2F;&#x2F; Local index inside the shared memory tile    int localIdx &#x3D; threadIdx.y * blockDim.x + threadIdx.x;    &#x2F;&#x2F; Load elements into shared memory including halo regions if within bounds    if (x &lt; nx &amp;&amp; y &lt; ny) &#123;        tile[localIdx] &#x3D; in_xy[index];    &#125;    __syncthreads(); &#x2F;&#x2F; Wait for all threads to finish loading    &#x2F;&#x2F; Only compute for inner elements of the block    if(threadIdx.x &gt; 0 &amp;&amp; threadIdx.x &lt; (blockDim.x - 1) &amp;&amp; threadIdx.y &gt; 0 &amp;&amp; threadIdx.y &lt; (blockDim.y - 1) &amp;&amp; x &lt; (nx - 1) &amp;&amp; y &lt; (ny - 1)) &#123;        int left &#x3D; localIdx - 1;        int right &#x3D; localIdx + 1;        int top &#x3D; localIdx - blockDim.x;        int bottom &#x3D; localIdx + blockDim.x;        out_xy[index] &#x3D; 0.2 * (tile[localIdx] + tile[left] + tile[right] + tile[top] + tile[bottom]);    &#125;&#125;void fill_array(const int n, double *array) &#123;    double init &#x3D; (rand() % 1000) * 0.2;    for (int ii &#x3D; 0; ii &lt; n; ++ii) &#123;        *(array + ii) &#x3D; init + ii * 0.00001;    &#125;&#125;inline int64_t GetUsec() &#123;    struct timeval tv;    gettimeofday(&amp;tv, NULL);    return (tv.tv_sec * 1000000l) + tv.tv_usec;&#125;int main() &#123;    srand(202405);    double *host_in_xy &#x3D; new double[Nx * Ny];    double *host_out_xy &#x3D; new double[Nx * Ny];    fill_array(Nx * Ny, host_in_xy);    cudaEvent_t start, stop;    cudaEventCreate(&amp;start);    cudaEventCreate(&amp;stop);    double *dev_in_xy &#x3D; nullptr, *dev_out_xy &#x3D; nullptr;    cudaMalloc(&amp;dev_in_xy, sizeof(double) * (size_t)Nx * (size_t)Ny);    cudaMalloc(&amp;dev_out_xy, sizeof(double) * (size_t)Nx * (size_t)Ny);    cudaMemcpy(dev_in_xy, host_in_xy, sizeof(double) * (size_t)Nx * (size_t)Ny, cudaMemcpyHostToDevice);    cudaMemset(dev_out_xy, 0, sizeof(double) * (size_t)Nx * (size_t)Ny);    dim3 blockDims(blockSizeX, blockSizeY);    int numBlocksX &#x3D; (Nx + blockSizeX - 1) &#x2F; blockSizeX;    int numBlocksY &#x3D; (Ny + blockSizeY - 1) &#x2F; blockSizeY;    dim3 gridDims(numBlocksX, numBlocksY);    int sharedMemSize &#x3D; blockSizeX * blockSizeY * sizeof(double);    two_stencil_shared&lt;&lt;&lt;gridDims, blockDims, sharedMemSize&gt;&gt;&gt;(Nx, Ny, dev_in_xy, dev_out_xy);    cudaDeviceSynchronize();    cudaEventRecord(start);    int64_t ustart &#x3D; GetUsec();    for (int loop &#x3D; 0; loop &lt; TIMES; ++loop) &#123;        two_stencil_shared&lt;&lt;&lt;gridDims, blockDims, sharedMemSize&gt;&gt;&gt;(Nx, Ny, dev_in_xy, dev_out_xy);    &#125;    cudaDeviceSynchronize();    cudaEventRecord(stop);    cudaEventSynchronize(stop);    int64_t ufinish &#x3D; GetUsec();    cudaMemcpy(host_out_xy, dev_out_xy, sizeof(double) * (size_t)Nx * (size_t)Ny, cudaMemcpyDeviceToHost);    float ms &#x3D; 0.0f;    cudaEventElapsedTime(&amp;ms, start, stop);    printf(&quot;kernel time&#x3D;%.5f\n&quot;, ms &#x2F; TIMES);    printf(&quot;kernel usec&#x3D;%ld\n&quot;, (ufinish - ustart) &#x2F; TIMES);    cudaFree(dev_in_xy);    cudaFree(dev_out_xy);    delete[] host_in_xy;    delete[] host_out_xy;    return 0;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li></ul><h2 id="自评分"><a href="#自评分" class="headerlink" title="自评分"></a>自评分</h2><h3 id="自评分-1"><a href="#自评分-1" class="headerlink" title="自评分"></a>自评分</h3><ul><li>15分（5+10）</li></ul><h3 id="理由"><a href="#理由" class="headerlink" title="理由"></a>理由</h3><ul><li>完成两个提交内容</li><li>优化后的代码运行时间仅为原代码的50%</li><li>对优化前后的代码进行对比分析</li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 id="作业题目"><a href="#作业题目" class="headerlink" title="作业题目"></a>作业题目</h2><p><img src="/posts/32238.htm/image-20240509210549439.png" alt></p><h2 id="提交内容一：CUDA线程布局和内存层次"><a href="#提交内容一：CUDA线程布局和内存层次" class="headerlink" title="提交内容一：CUDA线程布局和内存层次"></a>提交内容一：CUDA线程布局和内存层次</h2><h3 id="线程布局"><a href="#线程布局" class="headerlink" title="线程布局"></a>线程布局</h3><p>在CUDA中，线程的布局从小到大总共有三个层次，分别为线程、线程块、网格</p><ul><li><strong>线程（Thread）：</strong><ul><li>线程是CUDA程序的最小执行单元</li><li>每个线程可以独立执行代码，并拥有自己的寄存器（局部内存）</li></ul></li><li><strong>线程块（Block）：</strong><ul><li>线程块是一定数量的线程的集合，它们可以共享一块共享内存</li><li>每个线程块内的线程可以通过同步原语进行协调</li></ul></li><li><strong>网格（Grid）：</strong><ul><li>网格是线程块的集合</li><li>一个CUDA内核可以启动多个线程块，所有这些块构成一个网格</li><li>网格可以是一维、二维或三维的结构</li></ul></li></ul><h3 id="内存层次"><a href="#内存层次" class="headerlink" title="内存层次"></a>内存层次</h3><p>CUDA在内存管理方面也存在很多个层次</p><ul><li><p><strong>寄存器（Registers）</strong>：</p><ul><li>每个线程拥有自己的寄存器，这是最快的存储形式</li><li>用于存储局部变量和临时计算结果</li></ul></li><li><p><strong>共享内存（Shared Memory）</strong>：</p><ul><li>由同一线程块内的所有线程共享</li><li>访问速度比全局内存快很多，但容量有限</li><li>适用于频繁访问的数据，可以显著提高性能</li></ul></li><li><p><strong>全局内存（Global Memory）</strong>：</p><ul><li>所有线程都可以访问的内存区域</li><li>访问速度较慢，但容量较大</li><li>通常用于存储从CPU传输的数据或大规模数据集</li></ul></li><li><p><strong>常量内存和纹理内存（Constant and Texture Memory）</strong>：</p><ul><li>常量内存用于存储不会改变的数据，对所有线程可见</li><li>纹理内存专用于图像处理，可以利用硬件优化的读取策略</li></ul></li></ul><h2 id="提交内容二：使用shared-memory优化代码"><a href="#提交内容二：使用shared-memory优化代码" class="headerlink" title="提交内容二：使用shared memory优化代码"></a>提交内容二：使用shared memory优化代码</h2><h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h3><ul><li><p>原代码运行结果</p><p><img src="/posts/32238.htm/ea17794f3aa60e54ac7a58c7f15a0faf.png" alt></p></li><li><p>引入shared memory后的运行结果</p><p><img src="/posts/32238.htm/image-20240510120518453.png" alt></p></li></ul><h3 id="数据分析"><a href="#数据分析" class="headerlink" title="数据分析"></a>数据分析</h3><ul><li>优化后的代运行时间仅为原代码的50%</li></ul><h3 id="代码对比"><a href="#代码对比" class="headerlink" title="代码对比"></a>代码对比</h3><ul><li><strong>减少全局内存访问次数</strong>：<ul><li>原代码中的每个线程直接从全局内存读取它需要的所有数据</li><li>优化后的代码通过使用共享内存作为数据缓冲，每个线程块将其所需的数据加载到共享内存中，这样，线程之间可以共享这部分数据，减少了对全局内存的访问次数</li></ul></li><li><strong>合并内存访问</strong>：<ul><li>合并访存是指多个线程同时访问位于连续地址的内存位置，这样可以最大化内存传输的效率</li></ul></li><li><strong>减少内存访问延迟</strong>：<ul><li>共享内存比全局内存具有更低的访问延迟。通过利用共享内存缓存核心数据，每个线程处理其数据时的延迟可以显著降低，从而提高整体的执行效率。</li></ul></li><li><strong>提高带宽利用率</strong>：<ul><li>由于减少了对全局内存的直接访问次数，并且更多的访问是合并进行的，因此提高了内存带宽的利用率</li></ul></li></ul><h3 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h3><ul><li><p>代码</p><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;#include &lt;sys&#x2F;time.h&gt;#include &lt;cuda.h&gt;#include &lt;cuda_runtime.h&gt;const int Nx &#x3D; 1024 * 2;const int Ny &#x3D; 1024 * 2;const int blockSize &#x3D; 256;  &#x2F;&#x2F; 线程块大小const int TIMES &#x3D; 10;&#x2F;&#x2F; 使用共享内存优化的stencil计算核函数__global__ void two_stencil_optimized(const int n, const double * __restrict__ in_xy, double * __restrict__ out_xy) &#123;    extern __shared__ double tile[];    int index &#x3D; blockIdx.x * blockDim.x + threadIdx.x;    int yindex &#x3D; index &#x2F; Nx;    int xindex &#x3D; index % Nx;    &#x2F;&#x2F; 加载输入数据到共享内存    tile[threadIdx.x] &#x3D; in_xy[index];    __syncthreads();    &#x2F;&#x2F; 确保只有内部的数据才被计算    if ((0 &lt; xindex &amp;&amp; xindex &lt; (Nx - 1)) &amp;&amp; (0 &lt; yindex &amp;&amp; yindex &lt; (Ny - 1))) &#123;        out_xy[index] &#x3D; 0.2 * (tile[threadIdx.x] + in_xy[index - 1] + in_xy[index + 1] + in_xy[index - Nx] + in_xy[index + Nx]);    &#125;    __syncthreads(); &#x2F;&#x2F; 确保所有操作在继续之前完成&#125;void fill_array(const int n, double *array) &#123;    double init &#x3D; (rand() % 1000) * 0.2;    for (int ii &#x3D; 0; ii &lt; n; ++ii) &#123;        *(array + ii) &#x3D; init + ii * 0.00001;    &#125;&#125;inline int64_t GetUsec() &#123;    struct timeval tv;    gettimeofday(&amp;tv, NULL);    return (tv.tv_sec * 1000000l) + tv.tv_usec;&#125;int main() &#123;    srand(202405);    double *host_in_xy &#x3D; new double[Nx*Ny];    double *host_out_xy &#x3D; new double[Nx*Ny];    fill_array(Nx*Ny, host_in_xy);    printf(&quot;host_in_xy[1000]&#x3D;%.5f\n&quot;, host_in_xy[1000]);        &#x2F;&#x2F; CUDA event 创建和计时    cudaEvent_t start, stop;    cudaEventCreate(&amp;start);    cudaEventCreate(&amp;stop);        double *dev_in_xy &#x3D; nullptr, *dev_out_xy &#x3D; nullptr;    cudaMalloc(&amp;dev_in_xy, sizeof(double) * Nx * Ny);    cudaMalloc(&amp;dev_out_xy, sizeof(double) * Nx * Ny);    cudaMemcpy(dev_in_xy, host_in_xy, sizeof(double) * Nx * Ny, cudaMemcpyHostToDevice);    cudaMemset(dev_out_xy, 0, sizeof(double) * Nx * Ny);    int numBlocks &#x3D; (Nx * Ny + blockSize - 1) &#x2F; blockSize;    printf(&quot;numBlocks&#x3D;%d\n&quot;, numBlocks);        &#x2F;&#x2F; warm up    two_stencil_optimized&lt;&lt;&lt;dim3(numBlocks, 1, 1), dim3(blockSize, 1, 1), blockSize * sizeof(double)&gt;&gt;&gt;(Nx * Ny, dev_in_xy, dev_out_xy);    cudaDeviceSynchronize();    cudaEventRecord(start);    int64_t ustart &#x3D; GetUsec();    for (int loop &#x3D; 0; loop &lt; TIMES; ++loop) &#123;        two_stencil_optimized&lt;&lt;&lt;dim3(numBlocks, 1, 1), dim3(blockSize, 1, 1), blockSize * sizeof(double)&gt;&gt;&gt;(Nx * Ny, dev_in_xy, dev_out_xy);    &#125;    cudaDeviceSynchronize();    cudaEventRecord(stop);    cudaEventSynchronize(stop);    int64_t ufinish &#x3D; GetUsec();    cudaMemcpy(host_out_xy, dev_out_xy, sizeof(double) * Nx * Ny, cudaMemcpyDeviceToHost);        float ms &#x3D; 0.0f;    cudaEventElapsedTime(&amp;ms, start, stop);    printf(&quot;kernel time&#x3D;%.5f\n&quot;, ms &#x2F; TIMES);    printf(&quot;kernel usec&#x3D;%ld, host_out_xy[10000]&#x3D;%.5f, host_out_xy[Nx*Ny - Nx - 16]&#x3D;%.5f\n&quot;, (ufinish - ustart) &#x2F; TIMES, host_out_xy[10000], host_out_xy[Nx * Ny - Nx - 16]);        cudaFree(dev_in_xy);    cudaFree(dev_out_xy);    delete[] host_in_xy;    delete[] host_out_xy;    return 0;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li></ul><h2 id="自评分"><a href="#自评分" class="headerlink" title="自评分"></a>自评分</h2><h3 id="自评分-1"><a href="#自评分-1" class="headerlink" title="自评分"></a>自评分</h3><ul><li>15分（5+10）</li></ul><h3 id="理由"><a href="#理由" class="headerlink" title="理由"></a>理由</h3><ul><li>完成两个提交内容</li><li>优化后的代码运行时间仅为原代码的50%</li><li>对优化前后的代码进行对比分析</li></ul>]]></content>
       
       
       <categories>
@@ -267,11 +267,11 @@
       
         <tags>
             
-            <tag> Java </tag>
-            
             <tag> 区块链 </tag>
             
             <tag> FISCO BCOS </tag>
+            
+            <tag> Java </tag>
             
         </tags>
       
@@ -296,13 +296,13 @@
       
         <tags>
             
-            <tag> SpringBoot </tag>
-            
-            <tag> Java </tag>
-            
             <tag> 区块链 </tag>
             
             <tag> FISCO BCOS </tag>
+            
+            <tag> SpringBoot </tag>
+            
+            <tag> Java </tag>
             
         </tags>
       
@@ -511,17 +511,6 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>404</title>
       <link href="/404.html"/>
       <url>/404.html</url>
@@ -533,9 +522,20 @@
     
     
     <entry>
-      <title>friends</title>
-      <link href="/friends/index.html"/>
-      <url>/friends/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>about</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -555,9 +555,9 @@
     
     
     <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>friends</title>
+      <link href="/friends/index.html"/>
+      <url>/friends/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -566,9 +566,9 @@
     
     
     <entry>
-      <title>about</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
