@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>国科大-高性能计算编程-作业六</title>
+      <link href="/posts/24430.html"/>
+      <url>/posts/24430.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="作业题目"><a href="#作业题目" class="headerlink" title="作业题目"></a>作业题目</h2><p><img src="/posts/24430.htm/image-20240525132500822.png" alt></p><h2 id="提交内容一：编译运行代码、执行算例、统计运行时间并绘制加速比曲线"><a href="#提交内容一：编译运行代码、执行算例、统计运行时间并绘制加速比曲线" class="headerlink" title="提交内容一：编译运行代码、执行算例、统计运行时间并绘制加速比曲线"></a>提交内容一：编译运行代码、执行算例、统计运行时间并绘制加速比曲线</h2><h3 id="GhostExchange3D-ArrayAssign"><a href="#GhostExchange3D-ArrayAssign" class="headerlink" title="GhostExchange3D_ArrayAssign"></a>GhostExchange3D_ArrayAssign</h3><ul><li><p>创建并进入<code>build</code>文件夹，执行<code>cmake ..</code>及<code>make</code>来编译可执行文件</p></li><li><p>运行算例一<code>mpirun -np 1 ./GhostExchange -x 1 -y 1 -z 1</code></p><p><img src="/posts/24430.htm/629349049cecda340bb1007915764712.png" alt></p></li><li><p>运行算例二<code>mpirun -np 4 ./GhostExchange -x 1 -y 2 -z 2</code></p><p><img src="/posts/24430.htm/1be503835c38eb96b16f509b9e9d8c73.png" alt></p></li><li><p>运行算例三<code>mpirun -np 8 ./GhostExchange -x 2 -y 2 -z 2</code></p><p><img src="/posts/24430.htm/3a88e01179245940f5d2a1385775da99.png" alt></p></li><li><p>数据统计</p></li></ul><div class="table-container"><table><thead><tr><th style="text-align:center">thread_num</th><th style="text-align:center">stencil</th><th style="text-align:center">boundary condition</th><th style="text-align:center">ghost cell</th><th style="text-align:center">total</th></tr></thead><tbody><tr><td style="text-align:center">1</td><td style="text-align:center">5.431515</td><td style="text-align:center">0.790956</td><td style="text-align:center">0.047246</td><td style="text-align:center">6.325972</td></tr><tr><td style="text-align:center">4</td><td style="text-align:center">0.890351</td><td style="text-align:center">0.142488</td><td style="text-align:center">0.553822</td><td style="text-align:center">1.605789</td></tr><tr><td style="text-align:center">8</td><td style="text-align:center">0.533962</td><td style="text-align:center">0.075818</td><td style="text-align:center">0.599633</td><td style="text-align:center">1.219806</td></tr></tbody></table></div><h3 id="CartExchange3D-Neighbor"><a href="#CartExchange3D-Neighbor" class="headerlink" title="CartExchange3D_Neighbor"></a>CartExchange3D_Neighbor</h3><ul><li><p>创建并进入<code>build</code>文件夹，执行<code>cmake ..</code>及<code>make</code>来编译可执行文件</p></li><li><p>运行算例一<code>mpirun -np 1 ./CartExchange -x 1 -y 1 -z 1</code></p><p><img src="/posts/24430.htm/816b1e3b43b762e138d807097d1299c2.png" alt></p></li><li><p>运行算例二<code>mpirun -np 4 ./CartExchange -x 1 -y 2 -z 2</code></p><p><img src="/posts/24430.htm/43863d9c414c645223ebe73e01a16616.png" alt></p></li><li><p>运行算例三<code>mpirun -np 8 ./CartExchange -x 2 -y 2 -z 2</code></p><p><img src="/posts/24430.htm/a991f034dd17d08b50b9d6431945af2d.png" alt></p></li><li><p>数据统计</p></li></ul><div class="table-container"><table><thead><tr><th style="text-align:center">thread_num</th><th style="text-align:center">stencil</th><th style="text-align:center">boundary condition</th><th style="text-align:center">ghost cell</th><th style="text-align:center">total</th></tr></thead><tbody><tr><td style="text-align:center">1</td><td style="text-align:center">5.490287</td><td style="text-align:center">0.790111</td><td style="text-align:center">0.000984</td><td style="text-align:center">6.337239</td></tr><tr><td style="text-align:center">4</td><td style="text-align:center">0.882329</td><td style="text-align:center">0.148143</td><td style="text-align:center">0.502601</td><td style="text-align:center">1.548727</td></tr><tr><td style="text-align:center">8</td><td style="text-align:center">0.405536</td><td style="text-align:center">0.047157</td><td style="text-align:center">0.486865</td><td style="text-align:center">0.947385</td></tr></tbody></table></div><h3 id="加速比曲线绘制"><a href="#加速比曲线绘制" class="headerlink" title="加速比曲线绘制"></a>加速比曲线绘制</h3><ul><li>曲线绘制代码</li></ul><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt<span class="token comment"># 时间数据（秒）</span>times <span class="token operator">=</span> <span class="token punctuation">&#123;</span>    <span class="token number">1</span><span class="token punctuation">:</span> <span class="token number">6.325972</span><span class="token punctuation">,</span>    <span class="token number">4</span><span class="token punctuation">:</span> <span class="token number">1.605789</span><span class="token punctuation">,</span>    <span class="token number">8</span><span class="token punctuation">:</span> <span class="token number">1.219806</span><span class="token punctuation">&#125;</span><span class="token comment"># 计算加速比</span>speedup <span class="token operator">=</span> <span class="token punctuation">&#123;</span>n<span class="token punctuation">:</span> times<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">/</span> t <span class="token keyword">for</span> n<span class="token punctuation">,</span> t <span class="token keyword">in</span> times<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token comment"># 绘制加速比曲线</span>plt<span class="token punctuation">.</span>figure<span class="token punctuation">(</span>figsize<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">)</span>plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">(</span>speedup<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token builtin">list</span><span class="token punctuation">(</span>speedup<span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> marker<span class="token operator">=</span><span class="token string">'o'</span><span class="token punctuation">,</span> linestyle<span class="token operator">=</span><span class="token string">'-'</span><span class="token punctuation">,</span> color<span class="token operator">=</span><span class="token string">'b'</span><span class="token punctuation">)</span><span class="token comment"># 添加图表标题和标签</span>plt<span class="token punctuation">.</span>title<span class="token punctuation">(</span><span class="token string">'Speedup Curve'</span><span class="token punctuation">)</span>plt<span class="token punctuation">.</span>xlabel<span class="token punctuation">(</span><span class="token string">'Number of Processes'</span><span class="token punctuation">)</span>plt<span class="token punctuation">.</span>ylabel<span class="token punctuation">(</span><span class="token string">'Speedup'</span><span class="token punctuation">)</span>plt<span class="token punctuation">.</span>grid<span class="token punctuation">(</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token comment"># 显示图表</span>plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><ul><li>GhostExchange3D_ArrayAssign</li></ul><p><img src="/posts/24430.htm/image-20240525133802124.png" alt></p><ul><li>CartExchange3D_Neighbor</li></ul><p><img src="/posts/24430.htm/image-20240525133840032.png" alt></p><h2 id="提交内容二：说明代码中MPI函数的功能"><a href="#提交内容二：说明代码中MPI函数的功能" class="headerlink" title="提交内容二：说明代码中MPI函数的功能"></a>提交内容二：说明代码中MPI函数的功能</h2><ul><li><p><code>MPI_Init</code></p><p>它初始化MPI库，并建立MPI环境，必须在调用任何其他MPI函数之前调用<code>MPI_Init</code></p></li><li><p><code>MPI_Comm_rank</code></p><p>获取当前进程的秩（rank），用于区分不同的进程。<code>MPI_COMM_WORLD</code> 是默认的通信器，表示所有进程都参与的通信域</p></li><li><p><code>MPI_Comm_size</code></p><p>获取总的进程数。<code>nprocs</code> 存储了当前通信域中总的进程数量</p></li><li><p><code>MPI_Irecv</code></p><p>非阻塞地接收消息</p></li><li><p><code>MPI_Isend</code></p><p>非阻塞地发送消息</p></li><li><p><code>MPI_Waitall</code></p><p>等待一组非阻塞通信操作完成</p></li><li><p><code>MPI_Allreduce</code></p><p>在所有进程中执行全局归约操作，并将结果分发给所有进程</p></li><li><p><code>MPI_Barrier</code></p><p>同步所有进程，确保所有进程都到达此点后才能继续执行。<code>MPI_Barrier</code>是一个阻塞操作，所有进程必须都调用这个函数，才能继续执行后续代码</p></li><li><p><code>MPI_Finalize</code></p><p>结束MPI环境，释放相关资源。调用<code>MPI_Finalize</code>后，不能再使用任何MPI函数</p></li><li><p><code>MPI_Cart_create</code></p><p>创建一个笛卡尔拓扑结构的通信域。<code>dims</code> 数组定义每个维度上的进程数，<code>periods</code> 数组定义每个维度上的周期性，<code>cart_comm</code> 是创建的通信域</p></li><li><p><code>MPI_Cart_coords</code></p><p>获取指定进程在笛卡尔拓扑结构中的坐标。<code>coords</code> 数组存储进程的坐标</p></li><li><p><code>MPI_Cart_shift</code></p><p>计算相邻进程的秩。第一个参数是通信域，第二个参数是移动的维度，第三个参数是移动的步数，后两个参数分别存储相邻进程的秩</p></li></ul><h2 id="自评分"><a href="#自评分" class="headerlink" title="自评分"></a>自评分</h2><h3 id="自评分-1"><a href="#自评分-1" class="headerlink" title="自评分"></a>自评分</h3><ul><li>5分（3+2）</li></ul><h3 id="理由"><a href="#理由" class="headerlink" title="理由"></a>理由</h3><ul><li>完成两个提交内容，使用python绘制加速比曲线</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 期末复习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 高性能计算 </tag>
+            
+            <tag> C++ </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>国科大-高性能计算编程-作业五</title>
       <link href="/posts/32238.html"/>
       <url>/posts/32238.html</url>
@@ -267,11 +294,11 @@
       
         <tags>
             
+            <tag> Java </tag>
+            
             <tag> 区块链 </tag>
             
             <tag> FISCO BCOS </tag>
-            
-            <tag> Java </tag>
             
         </tags>
       
@@ -296,13 +323,13 @@
       
         <tags>
             
-            <tag> 区块链 </tag>
-            
-            <tag> FISCO BCOS </tag>
-            
             <tag> SpringBoot </tag>
             
             <tag> Java </tag>
+            
+            <tag> 区块链 </tag>
+            
+            <tag> FISCO BCOS </tag>
             
         </tags>
       
@@ -358,9 +385,9 @@
             
             <tag> Ruby </tag>
             
-            <tag> Ubuntu </tag>
-            
             <tag> Rails </tag>
+            
+            <tag> Ubuntu </tag>
             
         </tags>
       
@@ -414,11 +441,11 @@
             
             <tag> SpringBoot </tag>
             
-            <tag> Java </tag>
-            
             <tag> Vue </tag>
             
             <tag> Web </tag>
+            
+            <tag> Java </tag>
             
         </tags>
       
@@ -445,11 +472,11 @@
             
             <tag> SpringBoot </tag>
             
-            <tag> Java </tag>
-            
             <tag> Vue </tag>
             
             <tag> Web </tag>
+            
+            <tag> Java </tag>
             
         </tags>
       
@@ -476,11 +503,11 @@
             
             <tag> SpringBoot </tag>
             
-            <tag> Java </tag>
-            
             <tag> Vue </tag>
             
             <tag> Web </tag>
+            
+            <tag> Java </tag>
             
         </tags>
       
@@ -533,20 +560,9 @@
     
     
     <entry>
-      <title>about</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>contact</title>
-      <link href="/contact/index.html"/>
-      <url>/contact/index.html</url>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -566,9 +582,20 @@
     
     
     <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>contact</title>
+      <link href="/contact/index.html"/>
+      <url>/contact/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>about</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
