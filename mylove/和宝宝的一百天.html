@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>和宝宝的一百天纪念旅行</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: linear-gradient(to bottom right, #ffe4e6, #bae6fd);
+      padding: 1rem;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      color: #be123c;
+      margin-bottom: 2rem;
+    }
+    .button-scroll {
+      display: flex;
+      overflow-x: auto;
+      white-space: nowrap;
+      gap: 0.75rem;
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .button-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    .date-button {
+      flex: 0 0 auto;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      border: 2px solid #be123c;
+      color: #be123c;
+      background: white;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+    .date-button:hover {
+      background: #fce7f3;
+    }
+    .date-button.active {
+      background: #be123c;
+      color: white;
+      transform: scale(1.05);
+      box-shadow: 0 0 0 3px rgba(190,18,60,0.3);
+    }
+    .fade-container {
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+    .fade-out {
+      opacity: 0;
+    }
+    .fade-in {
+      opacity: 1;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 1rem;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .card h2 {
+      color: #be123c;
+      margin-bottom: 1rem;
+    }
+    .activity {
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background: #fff;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: background 0.3s;
+    }
+    .activity:hover {
+      background: #fef2f2;
+    }
+    .brief {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .brief .text {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .brief .time {
+      font-weight: bold;
+      color: #be123c;
+      min-width: 90px;
+    }
+    .arrow {
+      transition: transform 0.3s ease;
+    }
+    .arrow.rotate {
+      transform: rotate(90deg);
+    }
+    .detail {
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+      opacity: 0;
+    }
+    .detail.show {
+      max-height: 200px;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <h1>和宝宝的一百天纪念旅行</h1>
+  <div class="button-scroll" id="day-buttons"></div>
+  <div id="schedule-container" class="fade-container"></div>
+  <script>
+    const schedule = {
+      "7.11": {
+        date: "7月11日（第一天）",
+        sections: {
+          "上午": [{ brief: "青岛集合", detail: "" }],
+          "中午": [{ brief: "入住青岛世茂凡象酒店", detail: "位置：台东地铁站，靠近台东步行街" }],
+          "下午": [{ brief: "午休", detail: "在酒店休息调整状态，为晚上行程做准备" }],
+          "晚上": [
+            { brief: "17:30-18:00 酒店 → 琴屿路", detail: "路程约5km，打卡网红S弯、喝咖啡、看日落" },
+            { brief: "琴屿路 → 团岛农贸市场", detail: "购买海鲜并加工，市场营业至晚8点，路程约5km" },
+            { brief: "19:30-22:00 第三海水浴场散步", detail: "看灯光秀、漫步沙滩，路程约8km" },
+            { brief: "22:00 万达影城观影", detail: "观看F1 IMAX电影（CBD店），预计结束时间午夜，路程6km" },
+            { brief: "观影结束 → 回酒店", detail: "夜间返回酒店，路程约3km" }
+          ]
+        }
+      },
+      "7.12": { date: "7月12日（第二天）", sections: {} },
+      "7.13": { date: "7月13日（第三天）", sections: {} },
+      "7.14": { date: "7月14日（第四天）", sections: {} },
+      "7.15": { date: "7月15日（第五天）", sections: {} },
+      "7.16": { date: "7月16日（第六天）", sections: {} }
+    };
+
+    let currentDay = "7.11";
+    const buttonsDiv = document.getElementById('day-buttons');
+    const container = document.getElementById('schedule-container');
+
+    function renderButtons() {
+      buttonsDiv.innerHTML = '';
+      Object.keys(schedule).forEach(day => {
+        const btn = document.createElement('button');
+        btn.textContent = schedule[day].date;
+        btn.className = 'date-button' + (currentDay === day ? ' active' : '');
+        btn.onclick = () => {
+          if (currentDay !== day) {
+            container.classList.add('fade-out');
+            setTimeout(() => {
+              currentDay = day;
+              renderButtons();
+              renderSchedule();
+              container.classList.remove('fade-out');
+              container.classList.add('fade-in');
+              setTimeout(() => container.classList.remove('fade-in'), 500);
+            }, 500);
+          }
+        };
+        buttonsDiv.appendChild(btn);
+      });
+    }
+
+    function renderSchedule() {
+      container.innerHTML = '';
+      const day = schedule[currentDay];
+      const sections = ["上午", "中午", "下午", "晚上"];
+
+      sections.forEach(period => {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        const header = document.createElement('h2');
+        header.textContent = period;
+        card.appendChild(header);
+
+        const items = day.sections[period] || [];
+        if (items.length === 0) {
+          const empty = document.createElement('p');
+          empty.textContent = '暂无安排';
+          empty.style.color = '#9ca3af';
+          card.appendChild(empty);
+        } else {
+          items.forEach((item) => {
+            const div = document.createElement('div');
+            div.className = 'activity';
+
+            const briefDiv = document.createElement('div');
+            briefDiv.className = 'brief';
+
+            const textDiv = document.createElement('div');
+            textDiv.className = 'text';
+            const time = document.createElement('span');
+            time.className = 'time';
+            time.textContent = item.brief.split(' ')[0];
+            const desc = document.createElement('span');
+            desc.textContent = item.brief.split(' ').slice(1).join(' ');
+            textDiv.appendChild(time);
+            textDiv.appendChild(desc);
+
+            const arrow = document.createElement('span');
+            arrow.className = 'arrow';
+            arrow.textContent = '▶';
+
+            briefDiv.appendChild(textDiv);
+            briefDiv.appendChild(arrow);
+            div.appendChild(briefDiv);
+
+            const detail = document.createElement('div');
+            detail.className = 'detail';
+            detail.textContent = item.detail;
+            div.appendChild(detail);
+
+            briefDiv.onclick = () => {
+              detail.classList.toggle('show');
+              arrow.classList.toggle('rotate');
+            };
+
+            card.appendChild(div);
+          });
+        }
+
+        container.appendChild(card);
+      });
+    }
+
+    renderButtons();
+    renderSchedule();
+  </script>
+</body>
+</html>
